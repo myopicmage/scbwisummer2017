@@ -6,6 +6,8 @@ import { Register } from "./components/register/register";
 import { RegisterPage } from "./components/register/registerpage";
 import { Admin } from "./components/admin/admin";
 import { Router, Route, browserHistory, IndexRoute, Link } from 'react-router';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 export class App extends React.Component<any, any> {
     render() {
@@ -23,14 +25,15 @@ export class App extends React.Component<any, any> {
 }
 
 render((
-    <Router history={browserHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Home} />
-            <Route path="/hello" component={Hello} />
-            <Route path="/register" component={Register}>
-                <Route path="/register/:page" component={RegisterPage} />
+    <Provider store={store}>
+        <Router history={browserHistory}>
+            <Route path="/" component={App}>
+                <IndexRoute component={Home} />
+                <Route path="/register" component={Register}>
+                    <Route path="/register/:page" component={RegisterPage} />
+                </Route>
+                <Route path="admin" component={Admin} />
             </Route>
-            <Route path="admin" component={Admin} />
-        </Route>
-    </Router>
+        </Router>
+    </Provider>
 ), document.getElementById("app"));

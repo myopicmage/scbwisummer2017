@@ -2,6 +2,10 @@
 import { Link } from 'react-router';
 
 export class Register extends React.Component<undefined, undefined> {
+    constructor() {
+        super();
+    }
+
     whatDo() {
         if (this.props.children) {
             return this.props.children;
