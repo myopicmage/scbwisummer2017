@@ -1,1 +1,1 @@
-﻿import { addFirstName, addAddress, addAddress2, addCity, addEmail, addLastName, addPhone, addPostalCode, addProvince } from './user';
+﻿import * as User from './user';
