@@ -60,3 +60,10 @@ export function addEmail(email) {
         email
     };
 }
+
+export function setMember(member) {
+    return {
+        type: "SET_MEMBER",
+        member
+    };
+}

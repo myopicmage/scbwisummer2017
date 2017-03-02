@@ -1,6 +1,6 @@
-﻿import { registration } from './registration';
+﻿import { user } from './user';
 import { combineReducers } from 'redux';
 
 export const reducers = combineReducers({
-    registration
+    user
 })
