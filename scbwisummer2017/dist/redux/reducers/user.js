@@ -17,7 +17,9 @@ var initialState = {
     postal: '',
     email: '',
     phone: '',
-    member: false
+    member: false,
+    country: '',
+    valid: false
 };
 function user(state, action) {
     if (state === void 0) { state = initialState; }
@@ -42,6 +44,10 @@ function user(state, action) {
             return __assign({}, state, { phone: action.phone });
         case 'SET_MEMBER':
             return __assign({}, state, { member: action.member });
+        case 'ADD_COUNTRY':
+            return __assign({}, state, { country: action.country });
+        case 'MARK_VALID':
+            return __assign({}, state, { valid: action.valid });
         default:
             return state;
     }

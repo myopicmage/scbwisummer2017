@@ -1,6 +1,7 @@
 ﻿import * as React from 'react';
 import { connect } from 'react-redux';
 import { setMember } from '../../redux/actions/user';
+import { seenMember } from '../../redux/actions/registration';
 import RaisedButton from 'material-ui/RaisedButton';
 
 export default class MemberSelect extends React.Component<any, any> {
@@ -12,6 +13,7 @@ export default class MemberSelect extends React.Component<any, any> {
         const { dispatch } = this.props;
 
         dispatch(setMember(isMember));
+        dispatch(seenMember());
 
         this.props.router.push({
             pathname: '/register/1'

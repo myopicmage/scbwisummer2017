@@ -25,6 +25,7 @@ namespace scbwisummer2017.Data
         }
 
         public virtual DbSet<Comprehensive> Comprehensives { get; set; }
+        public virtual DbSet<Copy> Copy { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
         public virtual DbSet<Critique> Critiques { get; set; }
         public virtual DbSet<Date> Dates { get; set; }

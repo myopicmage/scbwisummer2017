@@ -15,6 +15,7 @@ import Register from "./components/register/register";
 import RegisterPage from "./components/register/registerpage";
 import Admin from "./components/admin/admin";
 import RegistrationList from "./components/admin/registrationlist";
+import Prices from './components/admin/prices';
 
 injectTapEventPlugin();
 
@@ -30,6 +31,7 @@ render((
                 </Route>
                 <Route path="/dashboard" component={Admin}>
                     <Route path="/dashboard/registrations" component={RegistrationList} />
+                    <Route path="/dashboard/prices" component={Prices} />
                 </Route>
                 <Route path="*" component={Error404} />
             </Router>

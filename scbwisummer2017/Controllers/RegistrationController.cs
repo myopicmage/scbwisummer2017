@@ -8,12 +8,12 @@ using Microsoft.Extensions.Logging;
 using Braintree;
 using scbwisummer2017.Data;
 using Microsoft.Extensions.Options;
+using scbwisummer2017.Models.RegistrationViewModels;
 
 namespace scbwisummer2017.Controllers
 {
     public class RegistrationController : ScbwiController
     {
-        private readonly ApplicationDbContext _db;
         private readonly BraintreeGateway _gateway;
         private readonly ILogger _logger;
         private readonly IEmailSender _email;
@@ -43,6 +43,44 @@ namespace scbwisummer2017.Controllers
         }
 
         public IActionResult Tracks() => Success(_db.Workshops.OrderBy(x => x.title).ToList());
+
         public IActionResult Comprehensives() => Success(_db.Comprehensives.OrderBy(x => x.title).ToList());
+
+        public IActionResult Copy() {
+            var copy = _db.Copy.ToList();
+
+            return Success(new {
+                frontpage = copy.SingleOrDefault(x => x.page == "frontpage")?.text,
+                workshop = copy.SingleOrDefault(x => x.page == "workshop")?.text,
+                comprehensive = copy.SingleOrDefault(x => x.page == "comprehensive")?.text,
+                critique = copy.SingleOrDefault(x => x.page == "critique")?.text,
+                latedate = _db.Dates.SingleOrDefault(x => x.name == "late")
+            });
+        }
+
+        public IActionResult Prices() {
+            var late = _db.Dates.SingleOrDefault(x => x.name == "late").value;
+            var islate = late < DateTime.Now;
+            var prices = _db.Prices.Where(x => x.late == islate).ToList();
+            var m_workshop = prices.SingleOrDefault(x => x.member == true && x.type == "workshop")?.value ?? 0;
+            var nm_workshop = prices.SingleOrDefault(x => x.member == false && x.type == "workshop")?.value ?? 0;
+            var comprehensive = prices.SingleOrDefault(x => x.type == "comprehensive")?.value ?? 0;
+            var critique = prices.SingleOrDefault(x => x.type == "critique")?.value ?? 0;
+
+            var p = new Prices {
+                workshop = new Dictionary<string, decimal> {
+                    { "member", m_workshop },
+                    { "nonmember", nm_workshop }
+                },
+                comprehensive = new Dictionary<string, decimal> {
+                    { "member", comprehensive }
+                },
+                critique = new Dictionary<string, decimal> {
+                    { "regular", critique }
+                }
+            };
+
+            return Success(p);
+        }
     }
 }

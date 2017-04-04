@@ -9,9 +9,8 @@ function thunkMiddleware(_a) {
             next(action);
     }; };
 }
-var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux_1.compose;
-var store = redux_1.createStore(index_1.reducers, composeEnhancers(thunkMiddleware));
-console.log(store);
+var composeEnhancers = window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] || redux_1.compose;
+var store = redux_1.createStore(index_1.reducers, composeEnhancers(redux_1.applyMiddleware(thunkMiddleware)));
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = store;
 //# sourceMappingURL=store.js.map

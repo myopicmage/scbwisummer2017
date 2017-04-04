@@ -200,6 +200,8 @@ namespace scbwisummer2017.Data.Migrations
 
                     b.Property<string>("description");
 
+                    b.Property<int>("maxattendees");
+
                     b.Property<DateTime>("modified");
 
                     b.Property<string>("modifiedby");
@@ -211,6 +213,28 @@ namespace scbwisummer2017.Data.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Comprehensives");
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Copy", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("created");
+
+                    b.Property<string>("createdby");
+
+                    b.Property<DateTime>("modified");
+
+                    b.Property<string>("modifiedby");
+
+                    b.Property<string>("page");
+
+                    b.Property<string>("text");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Copy");
                 });
 
             modelBuilder.Entity("scbwisummer2017.Models.Data.Coupon", b =>

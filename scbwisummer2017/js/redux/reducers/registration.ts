@@ -4,8 +4,14 @@ const initialState = {
     manuscriptcritiques: -1,
     portfoliocritiques: -1,
     coupon: '',
+    fetchingtotal: false,
     subtotal: 0,
-    total: 0
+    total: 0,
+    seenmember: false,
+    seenbasic: false,
+    seencomprehensives: false,
+    seentracks: false,
+    seencritiques: false
 };
 
 export function registration(state = initialState, action) {
@@ -35,11 +41,42 @@ export function registration(state = initialState, action) {
                 ...state,
                 coupon: action.coupon
             };
-        case 'CALCULATE_TOTAL':
+        case 'FETCHING_TOTAL':
             return {
                 ...state,
+                fetchingtotal: true
+            };
+        case 'SET_TOTAL':
+            return {
+                ...state,
+                fetchingtotal: false,
                 total: action.total,
                 subtotal: action.subtotal
+            };
+        case 'SEEN_MEMBER':
+            return {
+                ...state,
+                seenmember: true
+            };
+        case 'SEEN_BASIC':
+            return {
+                ...state,
+                seenbasic: true
+            };
+        case 'SEEN_COMPREHENSIVES':
+            return {
+                ...state,
+                seencomprehensives: true
+            };
+        case 'SEEN_TRACKS':
+            return {
+                ...state,
+                seentracks: true
+            };
+        case 'SEEN_CRITIQUES':
+            return {
+                ...state,
+                seencritiques: true
             };
         default:
             return { ...state };

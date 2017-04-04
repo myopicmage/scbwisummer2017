@@ -67,3 +67,10 @@ export function setMember(member) {
         member
     };
 }
+
+export function addCountry(country) {
+    return {
+        type: 'ADD_COUNTRY',
+        country
+    };
+}

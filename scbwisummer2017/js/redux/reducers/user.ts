@@ -8,7 +8,9 @@
     postal: string;
     email: string;
     phone: string;
+    country: string;
     member: boolean;
+    valid: boolean;
 }
 
 const initialState : user = {
@@ -21,7 +23,9 @@ const initialState : user = {
     postal: '',
     email: '',
     phone: '',
-    member: false
+    member: false,
+    country: 'US',
+    valid: false
 };
 
 export function user(state = initialState, action) {
@@ -75,6 +79,16 @@ export function user(state = initialState, action) {
             return {
                 ...state,
                 member: action.member
+            };
+        case 'ADD_COUNTRY':
+            return {
+                ...state,
+                country: action.country
+            };
+        case 'MARK_VALID':
+            return {
+                ...state,
+                valid: action.valid
             };
         default:
             return state;

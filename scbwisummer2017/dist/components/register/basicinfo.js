@@ -49,6 +49,9 @@ var BasicInfo = (function (_super) {
                 case 'phone':
                     dispatch(user.addPhone(value));
                     break;
+                case 'country':
+                    dispatch(user.addCountry(value));
+                    break;
                 default:
                     break;
             }

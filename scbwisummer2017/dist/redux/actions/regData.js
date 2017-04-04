@@ -15,7 +15,6 @@ function fetchTracks() {
             url: '/registration/tracks'
         })
             .done(function (response) {
-            console.log(response);
             if (response.success) {
                 dispatch(fetchTracksSuccess(response.data));
             }
@@ -39,6 +38,15 @@ function fetchTracksSuccess(data) {
 function fetchComprehensives() {
     return function (dispatch) {
         dispatch(fetchingComprehensives());
+        $.ajax({
+            method: 'post',
+            url: '/registration/comprehensives'
+        })
+            .done(function (response) {
+            if (response.success) {
+                dispatch(fetchComprehensivesSuccess(response.data));
+            }
+        });
     };
 }
 exports.fetchComprehensives = fetchComprehensives;

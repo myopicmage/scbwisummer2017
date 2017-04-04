@@ -69,4 +69,11 @@ function setMember(member) {
     };
 }
 exports.setMember = setMember;
+function addCountry(country) {
+    return {
+        type: 'ADD_COUNTRY',
+        country: country
+    };
+}
+exports.addCountry = addCountry;
 //# sourceMappingURL=user.js.map

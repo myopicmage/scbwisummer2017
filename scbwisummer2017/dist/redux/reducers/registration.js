@@ -13,8 +13,14 @@ var initialState = {
     manuscriptcritiques: -1,
     portfoliocritiques: -1,
     coupon: '',
+    fetchingtotal: false,
     subtotal: 0,
-    total: 0
+    total: 0,
+    seenmember: false,
+    seenbasic: false,
+    seencomprehensives: false,
+    seentracks: false,
+    seencritiques: false
 };
 function registration(state, action) {
     if (state === void 0) { state = initialState; }
@@ -29,8 +35,18 @@ function registration(state, action) {
             return __assign({}, state, { portfoliocritiques: action.p_reviews });
         case 'SET_COUPON':
             return __assign({}, state, { coupon: action.coupon });
-        case 'CALCULATE_TOTAL':
-            return __assign({}, state, { total: action.total, subtotal: action.subtotal });
+        case 'FETCHING_TOTAL':
+            return __assign({}, state, { fetchingtotal: true });
+        case 'SET_TOTAL':
+            return __assign({}, state, { fetchingtotal: false, total: action.total, subtotal: action.subtotal });
+        case 'SEEN_MEMBER':
+            return __assign({}, state, { seenmember: true });
+        case 'SEEN_BASIC':
+            return __assign({}, state, { seenbasic: true });
+        case 'SEEN_COMPREHENSIVES':
+            return __assign({}, state, { seencomprehensives: true });
+        case 'SEEN_TRACKS':
+            return __assign({}, state, { seencritiques: true });
         default:
             return __assign({}, state);
     }

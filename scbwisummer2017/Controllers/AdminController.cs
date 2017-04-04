@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace scbwisummer2017.Controllers
 {
+    [Authorize]
     public class AdminController : ScbwiController
     {
         private readonly UserManager<ApplicationUser> _userManager;

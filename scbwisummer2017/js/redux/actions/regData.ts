@@ -23,21 +23,6 @@ export function fetchTracks() {
     };
 }
 
-function fetchingTracks() {
-    return {
-        type: 'FETCHING_TRACKS',
-        fetchingTracks: true
-    };
-}
-
-function fetchTracksSuccess(data) {
-    return {
-        type: 'FETCH_TRACKS_SUCCESS',
-        tracks: data,
-        fetchingTracks: false
-    };
-}
-
 export function fetchComprehensives() {
     return dispatch => {
         dispatch(fetchingComprehensives());
@@ -54,6 +39,53 @@ export function fetchComprehensives() {
     };
 }
 
+export function fetchCopy() {
+    return dispatch => {
+        dispatch(fetchingCopy());
+
+        $.ajax({
+            method: 'post',
+            url: '/registration/copy'
+        })
+        .done(response => {
+            if (response.success) {
+                dispatch(fetchingCopySuccess(response.data));
+            }
+        });
+    };
+}
+
+export function fetchPrices() {
+    return dispatch => {
+        dispatch(fetchingPrices());
+
+        $.ajax({
+            method: 'post',
+            url: '/registration/prices'
+        })
+        .done(response => {
+            if (response.success) {
+                dispatch(fetchingPricesSuccess(response.data));
+            }
+        });
+    };
+}
+
+function fetchingTracks() {
+    return {
+        type: 'FETCHING_TRACKS',
+        fetchingTracks: true
+    };
+}
+
+function fetchTracksSuccess(data) {
+    return {
+        type: 'FETCH_TRACKS_SUCCESS',
+        tracks: data,
+        fetchingTracks: false
+    };
+}
+
 function fetchingComprehensives() {
     return {
         type: 'FETCHING_COMPREHENSIVES',
@@ -66,5 +98,31 @@ function fetchComprehensivesSuccess(data) {
         type: 'FETCH_COMPREHENSIVES_SUCCESS',
         fetchingComprehensives: false,
         comprehensives: data
+    };
+}
+
+function fetchingCopy() {
+    return {
+        type: 'FETCHING_COPY'
+    };
+}
+
+function fetchingCopySuccess(copy) {
+    return {
+        type: 'FETCHING_COPY_SUCCESS',
+        copy
+    };
+}
+
+function fetchingPrices() {
+    return {
+        type: 'FETCHING_PRICES',
+    };
+}
+
+function fetchingPricesSuccess(prices) {
+    return {
+        type: 'FETCHING_PRICES_SUCCESS',
+        prices
     };
 }

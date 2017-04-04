@@ -17,6 +17,8 @@ export default class App extends React.Component<any, any> {
 
         dispatch(regDataActions.fetchComprehensives());
         dispatch(regDataActions.fetchTracks());
+        dispatch(regDataActions.fetchCopy());
+        dispatch(regDataActions.fetchPrices());
     }
 
     render() {

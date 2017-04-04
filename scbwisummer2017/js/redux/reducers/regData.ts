@@ -2,9 +2,30 @@ const initialState = {
     tracks: [],
     comprehensives: [],
     step: 0,
+    lateDate: '',
+    copy: {
+        lateDate: '',
+        workshop: '',
+        comprehensive: '',
+        frontpage: '',
+        critique: ''
+    },
+    prices: {
+        workshop: {
+            member: 0,
+            nonmember: 0
+        },
+        comprehensive: {
+            member: 0
+        },
+        critique: {
+            regular: 0
+        }
+    },
     fetchingTracks: false,
     fetchingComprehensives: false,
-    lateDate: ''
+    fetchingCopy: false,
+    fetchingPrices: false
 }
 
 export function regData(state = initialState, action) {
@@ -36,6 +57,27 @@ export function regData(state = initialState, action) {
                 fetchingComprehensives: false,
                 comprehensives: action.comprehensives
             };
+        case 'FETCHING_COPY':
+            return {
+                ...state,
+                fetchingCopy: true
+            };
+        case 'FETCHING_COPY_SUCCESS':
+            return {
+                ...state,
+                copy: action.copy
+            };
+        case 'FETCHING_PRICES':
+            return {
+                ...state,
+                fetchingPrices: true
+            };
+        case 'FETCHING_PRICES_SUCCESS':
+            return {
+                ...state,
+                fetchingPrices: false,
+                prices: action.prices
+            }
         default:
             return {
                 ...state

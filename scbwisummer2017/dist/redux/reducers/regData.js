@@ -20,6 +20,14 @@ function regData(state, action) {
     switch (action.type) {
         case 'SET_STEP':
             return __assign({}, state, { step: action.step });
+        case 'FETCHING_TRACKS':
+            return __assign({}, state, { fetchingTracks: true });
+        case 'FETCH_TRACKS_SUCCESS':
+            return __assign({}, state, { fetchingTracks: false, tracks: action.tracks });
+        case 'FETCHING_COMPREHENSIVES':
+            return __assign({}, state, { fetchingComprehensives: true });
+        case 'FETCH_COMPREHENSIVES_SUCCESS':
+            return __assign({}, state, { fetchingComprehensives: false, comprehensives: action.comprehensives });
         default:
             return __assign({}, state);
     }

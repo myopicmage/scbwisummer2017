@@ -1,7 +1,10 @@
 ﻿import * as React from 'react';
 import { connect } from 'react-redux';
 import * as user from '../../redux/actions/user';
+import { seenBasic } from '../../redux/actions/registration';
 import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 
 @connect(state => ({ user: state.user }))
@@ -41,12 +44,25 @@ export default class BasicInfo extends React.Component<any, any> {
             case 'phone':
                 dispatch(user.addPhone(value));
                 break;
+            case 'country':
+                dispatch(user.addCountry(value));
+                break;
             default:
                 break;
         }
     }
 
+    handleSelect = (event, index, value) => {
+        const {dispatch} = this.props;
+
+        dispatch(user.addCountry(value));
+    }
+
     continue = () => {
+        const {dispatch} = this.props;
+
+        dispatch(seenBasic());
+
         this.props.router.push({
             pathname: '/register/2'
         });
@@ -82,6 +98,11 @@ export default class BasicInfo extends React.Component<any, any> {
                         <div className="pure-u-1-3">
                             <TextField hintText="Zip/Postal" onChange={this.handleChange} name="postalcode" value={this.props.user.postal} />
                         </div>
+                        <br />
+                        <SelectField floatingLabelText="Country" onChange={this.handleSelect} value={this.props.user.country}>
+                            <MenuItem value="US" primaryText="US" />
+                            <MenuItem value="Canada" primaryText="Canada" />
+                        </SelectField>
                     </div>
                 </div>
                 <br />
