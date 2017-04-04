@@ -2,6 +2,7 @@
 import { connect } from 'react-redux';
 import * as user from '../../redux/actions/user';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 @connect(state => ({ user: state.user }))
 export default class BasicInfo extends React.Component<any, any> {
@@ -45,6 +46,12 @@ export default class BasicInfo extends React.Component<any, any> {
         }
     }
 
+    continue = () => {
+        this.props.router.push({
+            pathname: '/register/2'
+        });
+    }
+
     render() {
         return (
             <div className="pure-u-1">
@@ -83,6 +90,10 @@ export default class BasicInfo extends React.Component<any, any> {
                     <TextField hintText="Phone" onChange={this.handleChange} name="phone" value={this.props.user.phone} />
                     <br />
                     <TextField hintText="Email" onChange={this.handleChange} name="email" value={this.props.user.email} />
+                </div>
+                <br />
+                <div className="pure-u-1-2" style={{ marginTop: '20px' }}>
+                    <RaisedButton label="Continue" primary={true} onTouchTap={this.continue} />
                 </div>
             </div>
         );

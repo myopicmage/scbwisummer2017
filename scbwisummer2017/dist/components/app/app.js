@@ -13,11 +13,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var React = require("react");
 var react_redux_1 = require("react-redux");
 var AppBar_1 = require("material-ui/AppBar");
+var regDataActions = require("../../redux/actions/regData");
 var App = (function (_super) {
     __extends(App, _super);
     function App() {
         return _super.call(this) || this;
     }
+    App.prototype.componentDidMount = function () {
+        var dispatch = this.props.dispatch;
+        dispatch(regDataActions.fetchComprehensives());
+        dispatch(regDataActions.fetchTracks());
+    };
     App.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(AppBar_1.default, { title: "SCBWI Summer 2017", iconClassNameRight: "muidocs-icon-navigation-expand-more" }),

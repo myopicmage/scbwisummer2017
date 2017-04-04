@@ -4,11 +4,19 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from "material-ui/RaisedButton";
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import * as regDataActions from '../../redux/actions/regData';
 
 @connect(state => ({regData: state.regData }))
 export default class App extends React.Component<any, any> {
     constructor() {
         super();
+    }
+
+    componentDidMount() {
+        const {dispatch} = this.props;
+
+        dispatch(regDataActions.fetchComprehensives());
+        dispatch(regDataActions.fetchTracks());
     }
 
     render() {

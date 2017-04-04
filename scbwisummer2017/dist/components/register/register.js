@@ -21,6 +21,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var React = require("react");
 var react_redux_1 = require("react-redux");
 var Stepper_1 = require("material-ui/Stepper");
+var Paper_1 = require("material-ui/Paper");
 var memberselect_1 = require("./memberselect");
 var basicinfo_1 = require("./basicinfo");
 var Register = (function (_super) {
@@ -40,22 +41,24 @@ var Register = (function (_super) {
     }
     Register.prototype.render = function () {
         return (React.createElement("div", { className: "pure-u-1" },
-            React.createElement(Stepper_1.Stepper, { activeStep: Number(this.props.params.page) },
-                React.createElement(Stepper_1.Step, null,
-                    React.createElement(Stepper_1.StepLabel, null, "Member")),
-                React.createElement(Stepper_1.Step, null,
-                    React.createElement(Stepper_1.StepLabel, null, "Basic Information")),
-                React.createElement(Stepper_1.Step, null,
-                    React.createElement(Stepper_1.StepLabel, null, "Track")),
-                React.createElement(Stepper_1.Step, null,
-                    React.createElement(Stepper_1.StepLabel, null, "Friday Comprehensive")),
-                React.createElement(Stepper_1.Step, null,
-                    React.createElement(Stepper_1.StepLabel, null, "Critiques")),
-                React.createElement(Stepper_1.Step, null,
-                    React.createElement(Stepper_1.StepLabel, null, "Verify")),
-                React.createElement(Stepper_1.Step, null,
-                    React.createElement(Stepper_1.StepLabel, null, "Submit"))),
-            this.renderPage(this.props.params.page)));
+            React.createElement(Paper_1.default, { zDepth: 3 },
+                React.createElement(Stepper_1.Stepper, { activeStep: Number(this.props.params.page) },
+                    React.createElement(Stepper_1.Step, null,
+                        React.createElement(Stepper_1.StepLabel, null, "Member")),
+                    React.createElement(Stepper_1.Step, null,
+                        React.createElement(Stepper_1.StepLabel, null, "Basic Information")),
+                    React.createElement(Stepper_1.Step, null,
+                        React.createElement(Stepper_1.StepLabel, null, "Track")),
+                    React.createElement(Stepper_1.Step, { disabled: this.props.user.member },
+                        React.createElement(Stepper_1.StepLabel, null, "Friday Comprehensive")),
+                    React.createElement(Stepper_1.Step, null,
+                        React.createElement(Stepper_1.StepLabel, null, "Critiques")),
+                    React.createElement(Stepper_1.Step, null,
+                        React.createElement(Stepper_1.StepLabel, null, "Verify")),
+                    React.createElement(Stepper_1.Step, null,
+                        React.createElement(Stepper_1.StepLabel, null, "Submit")))),
+            React.createElement("br", null),
+            React.createElement(Paper_1.default, { zDepth: 3, style: { padding: '20px' } }, this.renderPage(this.props.params.page))));
     };
     return Register;
 }(React.Component));

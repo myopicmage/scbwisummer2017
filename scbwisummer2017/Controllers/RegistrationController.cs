@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace scbwisummer2017.Controllers
 {
-    public class RegistrationController : Controller
+    public class RegistrationController : ScbwiController
     {
         private readonly ApplicationDbContext _db;
         private readonly BraintreeGateway _gateway;
@@ -41,5 +41,8 @@ namespace scbwisummer2017.Controllers
                 throw;
             }
         }
+
+        public IActionResult Tracks() => Success(_db.Workshops.OrderBy(x => x.title).ToList());
+        public IActionResult Comprehensives() => Success(_db.Comprehensives.OrderBy(x => x.title).ToList());
     }
 }

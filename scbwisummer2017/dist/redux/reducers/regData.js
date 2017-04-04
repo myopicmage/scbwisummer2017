@@ -10,7 +10,10 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 var initialState = {
     tracks: [],
     comprehensives: [],
-    step: 0
+    step: 0,
+    fetchingTracks: false,
+    fetchingComprehensives: false,
+    lateDate: ''
 };
 function regData(state, action) {
     if (state === void 0) { state = initialState; }

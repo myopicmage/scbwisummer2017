@@ -30,43 +30,46 @@ export default class Register extends React.Component<any, any> {
     render() {
         return (
             <div className="pure-u-1">
-                <Stepper activeStep={Number(this.props.params.page)}>
-                    <Step>
-                        <StepLabel>
-                            Member
+                <Paper zDepth={3}>
+                    <Stepper activeStep={Number(this.props.params.page)}>
+                        <Step>
+                            <StepLabel>
+                                Member
                         </StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>
-                            Basic Information
+                        </Step>
+                        <Step>
+                            <StepLabel>
+                                Basic Information
                         </StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>
-                            Track
+                        </Step>
+                        <Step>
+                            <StepLabel>
+                                Track
                         </StepLabel>
-                    </Step>
-                    <Step disabled={this.props.user.member}>
-                        <StepLabel>
-                            Friday Comprehensive
+                        </Step>
+                        <Step disabled={this.props.user.member}>
+                            <StepLabel>
+                                Friday Comprehensive
                         </StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>
-                            Critiques
+                        </Step>
+                        <Step>
+                            <StepLabel>
+                                Critiques
                         </StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>
-                            Verify
+                        </Step>
+                        <Step>
+                            <StepLabel>
+                                Verify
                         </StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>
-                            Submit
+                        </Step>
+                        <Step>
+                            <StepLabel>
+                                Submit
                         </StepLabel>
-                    </Step>
-                </Stepper>
+                        </Step>
+                    </Stepper>
+                </Paper>
+                <br />
                 <Paper zDepth={3} style={{ padding: '20px' }}>
                     {this.renderPage(this.props.params.page)}
                 </Paper>
