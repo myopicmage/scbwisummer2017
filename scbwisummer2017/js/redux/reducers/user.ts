@@ -1,4 +1,17 @@
-﻿const initialState = {
+﻿export interface user {
+    firstname: string;
+    lastname: string;
+    address1: string;
+    address2: string;
+    city: string;
+    province: string;
+    postal: string;
+    email: string;
+    phone: string;
+    member: boolean;
+}
+
+const initialState : user = {
     firstname: '',
     lastname: '',
     address1: '',

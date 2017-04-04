@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 
-export class RegisterPage extends React.Component<any, any> {
+export default class RegisterPage extends React.Component<any, any> {
     render() {
         return (
             <div>

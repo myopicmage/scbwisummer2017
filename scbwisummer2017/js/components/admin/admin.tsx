@@ -2,7 +2,7 @@
 import { Link } from "react-router";
 import AppBar from "material-ui/AppBar";
 
-export class Admin extends React.Component<undefined, undefined> {
+export default class Admin extends React.Component<any, any> {
     render() {
         return (
             <div>

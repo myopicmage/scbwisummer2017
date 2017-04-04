@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using scbwisummer2017.Data;
+using scbwisummer2017.Models.Data;
 
 namespace scbwisummer2017.Data.Migrations
 {
@@ -15,25 +14,26 @@ namespace scbwisummer2017.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rc3")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "1.1.1");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
+                        .IsUnique()
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
@@ -105,8 +105,6 @@ namespace scbwisummer2017.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("AspNetUserRoles");
                 });
 
@@ -127,7 +125,8 @@ namespace scbwisummer2017.Data.Migrations
 
             modelBuilder.Entity("scbwisummer2017.Models.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
 
@@ -135,7 +134,7 @@ namespace scbwisummer2017.Data.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -144,10 +143,10 @@ namespace scbwisummer2017.Data.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
 
@@ -160,7 +159,23 @@ namespace scbwisummer2017.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
+
+                    b.Property<string>("address1");
+
+                    b.Property<string>("address2");
+
+                    b.Property<string>("city");
+
+                    b.Property<string>("firstname");
+
+                    b.Property<string>("lastname");
+
+                    b.Property<string>("phone");
+
+                    b.Property<string>("postalcode");
+
+                    b.Property<string>("state");
 
                     b.HasKey("Id");
 
@@ -172,6 +187,200 @@ namespace scbwisummer2017.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Comprehensive", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("created");
+
+                    b.Property<string>("createdby");
+
+                    b.Property<string>("description");
+
+                    b.Property<DateTime>("modified");
+
+                    b.Property<string>("modifiedby");
+
+                    b.Property<string>("presenters");
+
+                    b.Property<string>("title");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Comprehensives");
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Coupon", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("created");
+
+                    b.Property<string>("createdby");
+
+                    b.Property<DateTime>("modified");
+
+                    b.Property<string>("modifiedby");
+
+                    b.Property<string>("text");
+
+                    b.Property<int>("type");
+
+                    b.Property<int>("validuses");
+
+                    b.Property<string>("value");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Coupons");
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Critique", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("created");
+
+                    b.Property<string>("createdby");
+
+                    b.Property<DateTime>("modified");
+
+                    b.Property<string>("modifiedby");
+
+                    b.Property<string>("path");
+
+                    b.Property<int?>("registrationid");
+
+                    b.Property<int>("type");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("registrationid");
+
+                    b.ToTable("Critiques");
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Date", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("created");
+
+                    b.Property<string>("createdby");
+
+                    b.Property<string>("description");
+
+                    b.Property<DateTime>("modified");
+
+                    b.Property<string>("modifiedby");
+
+                    b.Property<string>("name");
+
+                    b.Property<DateTime>("value");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Dates");
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Price", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("created");
+
+                    b.Property<string>("createdby");
+
+                    b.Property<bool>("late");
+
+                    b.Property<bool>("member");
+
+                    b.Property<DateTime>("modified");
+
+                    b.Property<string>("modifiedby");
+
+                    b.Property<string>("type");
+
+                    b.Property<decimal>("value");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Prices");
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Registration", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("comprehensiveid");
+
+                    b.Property<int?>("couponid");
+
+                    b.Property<DateTime>("created");
+
+                    b.Property<string>("createdby");
+
+                    b.Property<bool>("ismember");
+
+                    b.Property<DateTime>("modified");
+
+                    b.Property<string>("modifiedby");
+
+                    b.Property<DateTime>("paid");
+
+                    b.Property<string>("paypalid");
+
+                    b.Property<DateTime>("submitted");
+
+                    b.Property<string>("userId");
+
+                    b.Property<int?>("workshopid");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("comprehensiveid");
+
+                    b.HasIndex("couponid");
+
+                    b.HasIndex("userId");
+
+                    b.HasIndex("workshopid");
+
+                    b.ToTable("Registrations");
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Workshop", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("created");
+
+                    b.Property<string>("createdby");
+
+                    b.Property<string>("description");
+
+                    b.Property<int>("maxattendees");
+
+                    b.Property<DateTime>("modified");
+
+                    b.Property<string>("modifiedby");
+
+                    b.Property<string>("presenters");
+
+                    b.Property<string>("title");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Workshops");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
@@ -209,6 +418,32 @@ namespace scbwisummer2017.Data.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Critique", b =>
+                {
+                    b.HasOne("scbwisummer2017.Models.Data.Registration", "registration")
+                        .WithMany("critiques")
+                        .HasForeignKey("registrationid");
+                });
+
+            modelBuilder.Entity("scbwisummer2017.Models.Data.Registration", b =>
+                {
+                    b.HasOne("scbwisummer2017.Models.Data.Comprehensive", "comprehensive")
+                        .WithMany()
+                        .HasForeignKey("comprehensiveid");
+
+                    b.HasOne("scbwisummer2017.Models.Data.Coupon", "coupon")
+                        .WithMany("users")
+                        .HasForeignKey("couponid");
+
+                    b.HasOne("scbwisummer2017.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("userId");
+
+                    b.HasOne("scbwisummer2017.Models.Data.Workshop", "workshop")
+                        .WithMany()
+                        .HasForeignKey("workshopid");
                 });
         }
     }

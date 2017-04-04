@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using scbwisummer2017.Models.Data;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace scbwisummer2017.Services
 {
@@ -10,10 +13,60 @@ namespace scbwisummer2017.Services
     // For more details see this link http://go.microsoft.com/fwlink/?LinkID=532713
     public class AuthMessageSender : IEmailSender, ISmsSender
     {
+        public AuthMessageSender(IOptions<Secrets> secrets, IOptions<EmailOptions> emailopts)
+        {
+            Options = secrets.Value;
+            EmailOpts = emailopts.Value;
+
+            support_email = new EmailAddress(EmailOpts.supportemail, EmailOpts.supportemailname);
+        }
+
+        public Secrets Options { get; } //set only via Secret Manager
+        public EmailOptions EmailOpts { get; }
+
+        private readonly EmailAddress support_email;
+
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            // Plug in your email service here to send an email.
             return Task.FromResult(0);
+        }
+
+        public Task<HttpResponseMessage> SendEmailAsync(string email, string subject, string message, string name)
+        {
+            var client = new HttpClient();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("BEARER", Options.sendgridkey);
+
+            var payload = new SendGridEmail
+            {
+                content = new List<EmailMessage>
+                {
+                    new EmailMessage("text/html", message)
+                },
+                personalizations = new List<Personalization>
+                {
+                    new Personalization
+                    {
+                        to = new [] { new EmailAddress(email, name) },
+                        bcc = new List<EmailAddress>(),
+                        subject = subject
+                    }
+                },
+                from = new EmailAddress("register@scbwiflorida.com", "SCBWI Florida Registration Bot"),
+                reply_to = support_email
+            };
+
+            if (EmailOpts.ccra)
+            {
+                payload.personalizations.First().bcc.Add(support_email);
+            }
+
+            if (EmailOpts.sendtoself)
+            {
+                payload.personalizations.First().bcc.Add(new EmailAddress(EmailOpts.self, ""));
+            }
+
+            return client.PostAsJsonAsync("https://api.sendgrid.com/v3/mail/send", payload);
         }
 
         public Task SendSmsAsync(string number, string message)

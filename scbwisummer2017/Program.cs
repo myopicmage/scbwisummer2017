@@ -14,9 +14,8 @@ namespace scbwisummer2017
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseApplicationInsights()
+                .UseUrls("http://*:5000")
                 .Build();
 
             host.Run();
