@@ -4,6 +4,13 @@ import { setMember } from '../../redux/actions/user';
 import { seenMember } from '../../redux/actions/registration';
 import RaisedButton from 'material-ui/RaisedButton';
 
+@connect(state => {
+    return {
+        regData: state.regData,
+        registration: state.registration,
+        user: state.user
+    };
+})
 export default class MemberSelect extends React.Component<any, any> {
     constructor() {
         super();

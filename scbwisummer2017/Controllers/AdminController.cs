@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace scbwisummer2017.Controllers
 {
-    [Authorize]
     public class AdminController : ScbwiController
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -109,7 +108,16 @@ namespace scbwisummer2017.Controllers
             return await Save();
         }
 
-        public IActionResult Registrations() => Json(_db.Registrations.OrderByDescending(x => x.created).ToList());
+        [HttpPost]
+        public IActionResult Registrations(int number) {
+            var reg = _db.Registrations.OrderByDescending(x => x.created);
+
+            if (number > 0) {
+                return Success(reg.Take(number).ToList());
+            }
+
+            return Success(reg.ToList());
+        } 
         public IActionResult Workshops() => Json(_db.Workshops.OrderBy(x => x.title).ToList());
 
         [HttpPost]

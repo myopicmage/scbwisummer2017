@@ -13,7 +13,9 @@ export default class Prices extends React.Component<any, any> {
 
     render() {
         return (
-            <div>i'm a list</div>
+            <div>
+                <h1>Prices</h1>
+            </div>
         );
     }
 }

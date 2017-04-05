@@ -30,27 +30,8 @@ export default class Register extends React.Component<any, any> {
 
         if (!seenmember || !seenbasic || !seentracks || !seencritiques) {
             /*this.props.router.push({
-                pathname: '/register'
+                pathname: '/register/0'
             });*/
-        }
-    }
-
-    renderPage = (page = '0') => {
-        switch (page) {
-            case '0':
-                return <MemberSelect {...this.props} />;
-            case '1':
-                return <BasicInfo {...this.props} />;
-            case '2':
-                return <Comprehensives {...this.props} />;
-            case '3':
-                return <Tracks {...this.props} />;
-            case '4':
-                return <Critiques {...this.props} />;
-            case '5':
-                return <Verify {...this.props} />;
-            case '6':
-                return <Complete {...this.props} />;
         }
     }
 
@@ -68,8 +49,6 @@ export default class Register extends React.Component<any, any> {
     }
 
     render() {
-        let pageToRender = this.renderPage(this.props.params.page);
-
         return (
             <div className="pure-u-1">
                 <Paper zDepth={3}>
@@ -113,7 +92,7 @@ export default class Register extends React.Component<any, any> {
                 </Paper>
                 <br />
                 <Paper zDepth={3} style={{ padding: '20px' }}>
-                    {pageToRender}
+                    {this.props.children}
                 </Paper>
             </div>
         );

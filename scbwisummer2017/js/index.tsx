@@ -10,12 +10,12 @@ import * as injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from "./components/app/app";
 import Home from "./components/app/home";
+
 import Error404 from "./components/app/error404";
-import Register from "./components/register/register";
-import RegisterPage from "./components/register/registerpage";
-import Admin from "./components/admin/admin";
-import RegistrationList from "./components/admin/registrationlist";
-import Prices from './components/admin/prices';
+
+import * as Register from './components/register';
+
+import * as Admin from './components/admin';
 
 injectTapEventPlugin();
 
@@ -25,13 +25,24 @@ render((
             <Router history={browserHistory}>
                 <Route path="/" component={App}>
                     <IndexRoute component={Home} />
-                    <Route path="/register" component={Register}>
-                        <Route path="/register/:page" component={RegisterPage} />
+                    <Route path="/register" component={Register.Register}>
+                        <IndexRoute component={Register.MemberSelect} />
+                        <Route path="/register/1" component={Register.BasicInfo} />
+                        <Route path="/register/2" component={Register.Comprehensives} />
+                        <Route path="/register/3" component={Register.Tracks} />
+                        <Route path="/register/4" component={Register.Critiques} />
+                        <Route path="/register/5" component={Register.Verify} />
+                        <Route path="/register/6" component={Register.Complete} />
                     </Route>
                 </Route>
-                <Route path="/dashboard" component={Admin}>
-                    <Route path="/dashboard/registrations" component={RegistrationList} />
-                    <Route path="/dashboard/prices" component={Prices} />
+                <Route path="/dashboard" component={Admin.Admin}>
+                    <IndexRoute component={Admin.Dashboard} />
+                    <Route path="/dashboard/registrations" component={Admin.RegistrationList} />
+                    <Route path="/dashboard/prices" component={Admin.Prices} />
+                    <Route path="/dashboard/comprehensives" component={Admin.Comprehensives} />
+                    <Route path="/dashboard/copy" component={Admin.Copy} />
+                    <Route path="/dashboard/critiques" component={Admin.Critiques} />
+                    <Route path="/dashboard/workshops" component={Admin.Workshops} />
                 </Route>
                 <Route path="*" component={Error404} />
             </Router>

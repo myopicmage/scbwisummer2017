@@ -39,6 +39,61 @@ export function admin(state = initialState, action) {
                 registrationsfetching: false,
                 registrations: action.registrations
             };
+        case 'WORKSHOPS_FETCHING':
+            return {
+                ...state,
+                workshopsfetching: true,
+            };
+        case 'WORKSHOPS_FETCHING_SUCCESS':
+            return {
+                ...state,
+                workshopsfetching: false,
+                workshops: action.workshops
+            };
+        case 'LATEDATE_FETCHING':
+            return {
+                ...state,
+                latedatefetching: true
+            };
+        case 'LATEDATE_FETCHING_SUCCESS':
+            return {
+                ...state,
+                latedatefetching: false,
+                latedate: action.latedate
+            };
+        case 'COPY_FETCHING':
+            return {
+                ...state,
+                copyfetching: true
+            };
+        case 'COPY_FETCHING_SUCCESS':
+            return {
+                ...state,
+                copyfetching: false,
+                copy: action.copy
+            };
+        case 'COMPREHENSIVES_FETCHING':
+            return {
+                ...state,
+                comprehensivesfetching: true
+            };
+        case 'COMPREHENSIVES_FETCHING_SUCCESS':
+            return {
+                ...state,
+                comprehensivesfetching: false,
+                comprehensives: action.comprehensives
+            };
+        case 'COUPONS_FETCHING':
+            return {
+                ...state,
+                couponsfetching: true,
+            };
+        case 'COUPONS_FETCHING_SUCCESS':
+            return {
+                ...state,
+                couponsfetching: false,
+                coupons: action.coupons
+            };
         default:
             return state;
     }
