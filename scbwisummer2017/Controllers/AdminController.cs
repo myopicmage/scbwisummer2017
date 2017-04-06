@@ -135,5 +135,16 @@ namespace scbwisummer2017.Controllers
 
             return await Save();
         }
+
+        public IActionResult Copy() {
+            var copy = _db.Copy.ToList();
+
+            return Success(new {
+                frontpage = copy.SingleOrDefault(x => x.page == "frontpage")?.text,
+                workshop = copy.SingleOrDefault(x => x.page == "workshop")?.text,
+                comprehensive = copy.SingleOrDefault(x => x.page == "comprehensive")?.text,
+                critique = copy.SingleOrDefault(x => x.page == "critique")?.text,
+            });
+        }
     }
 }

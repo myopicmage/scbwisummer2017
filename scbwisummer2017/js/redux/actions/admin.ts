@@ -5,7 +5,7 @@ export function fetchPrices() {
         dispatch(pricesFetching());
 
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: '/admin/prices'
         })
         .done(response => {
@@ -51,7 +51,7 @@ export function fetchRegistrations(number = 10) {
         dispatch(registrationsFetching());
 
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: '/admin/registrations'
         })
         .done(response => {
@@ -97,7 +97,7 @@ export function fetchWorkshops() {
         dispatch(workshopsFetching());
 
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: '/admin/workshops'
         })
         .done(response => {
@@ -143,7 +143,7 @@ export function fetchLateDate() {
         dispatch(lateDateFetching());
 
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: '/admin/latedate'
         })
         .done(response => {
@@ -189,7 +189,7 @@ export function fetchCopy() {
         dispatch(copyFetching());
 
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: '/admin/copy'
         })
         .done(response => {
@@ -226,6 +226,13 @@ function copyFetching() {
 function copyFetchingSuccess(copy) {
     return {
         type: 'COPY_FETCHING_SUCCESS',
+        copy
+    };
+}
+
+export function setCopy(copy) {
+    return {
+        type: 'SET_COPY',
         copy
     };
 }
@@ -281,7 +288,7 @@ export function fetchCoupons() {
         dispatch(couponsFetching());
 
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: '/admin/coupons'
         })
         .done(response => {

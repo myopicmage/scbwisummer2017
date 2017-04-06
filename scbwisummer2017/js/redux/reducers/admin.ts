@@ -72,6 +72,11 @@ export function admin(state = initialState, action) {
                 copyfetching: false,
                 copy: action.copy
             };
+        case 'SET_COPY':
+            return {
+                ...state,
+                copy: action.copy
+            };
         case 'COMPREHENSIVES_FETCHING':
             return {
                 ...state,
