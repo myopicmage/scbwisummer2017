@@ -27,7 +27,7 @@ export default class Comprehensives extends React.Component<any, any> {
     makeList = () => {
         return this.props.regData.comprehensives.map((item, index) => {
             return (
-                <RadioButton value={item.id} label={`${item.title} presented by ${item.presenters}`} />
+                <RadioButton value={item.id} label={`${item.title} presented by ${item.presenters}`} key={item.id} />
             );
         });
     }

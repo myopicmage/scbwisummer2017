@@ -108,7 +108,6 @@ namespace scbwisummer2017.Controllers
             return await Save();
         }
 
-        [HttpPost]
         public IActionResult Registrations(int number) {
             var reg = _db.Registrations.OrderByDescending(x => x.created);
 
@@ -118,6 +117,7 @@ namespace scbwisummer2017.Controllers
 
             return Success(reg.ToList());
         } 
+
         public IActionResult Workshops() => Json(_db.Workshops.OrderBy(x => x.title).ToList());
 
         [HttpPost]

@@ -33,6 +33,13 @@ export function addPrice(price) {
     };
 }
 
+export function makePrice(price) {
+    return {
+        type: 'MAKE_PRICE',
+        price
+    };
+}
+
 function pricesFetching() {
     return {
         type: 'PRICES_FETCHING'
@@ -105,6 +112,13 @@ export function fetchWorkshops() {
                 dispatch(workshopsFetchingSuccess(response.data));
             }
         });
+    };
+}
+
+export function makeWorkshop(workshop) {
+    return {
+        type: 'MAKE_WORKSHOP',
+        workshop
     };
 }
 
@@ -250,6 +264,13 @@ export function fetchComprehensives() {
                 dispatch(comprehensivesFetchingSuccess(response.data));
             }
         });
+    };
+}
+
+export function makeComprehensive(comprehensive) {
+    return {
+        type: 'MAKE_COMPREHENSIVE',
+        comprehensive
     };
 }
 

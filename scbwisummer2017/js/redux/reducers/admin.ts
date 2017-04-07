@@ -1,48 +1,72 @@
-const initialState = {
-    prices: {},
+const fetchInitial = {
+    fprices: false,
+    fregistrations: false,
+    fworkshops: false,
+    flatedate: false,
+    fcopy: false,
+    fcomprehensives: false,
+    fcoupons: false
+};
+
+const adminInitial = {
+    prices: [],
     registrations: [],
     workshops: [],
     latedate: '',
     copy: {},
     comprehensives: [],
     coupons: [],
-    pricesfetching: false,
-    registrationsfetching: false,
-    workshopsfetching: false,
-    latedatefetching: false,
-    copyfetching: false,
-    comprehensivesfetching: false,
-    couponsfetching: false
-}
+    ...fetchInitial
+};
 
-export function admin(state = initialState, action) {
+export function admin(state = adminInitial, action) {
     switch (action.type) {
         case 'PRICES_FETCHING':
             return {
                 ...state,
-                pricesfetching: true
-            };
-        case 'PRICES_FETCHING_SUCCESS':
-            return {
-                ...state,
-                pricesfetching: false,
-                prices: action.prices
+                fprices: true
             };
         case 'REGISTRATIONS_FETCHING':
             return {
                 ...state,
-                registrationsfetching: true
-            };
-        case 'REGISTRATIONS_FETCHING_SUCCESS':
-            return {
-                ...state,
-                registrationsfetching: false,
-                registrations: action.registrations
+                fregistrations: true
             };
         case 'WORKSHOPS_FETCHING':
             return {
                 ...state,
-                workshopsfetching: true,
+                fworkshops: true,
+            };
+        case 'LATEDATE_FETCHING':
+            return {
+                ...state,
+                flatedate: true
+            };
+        case 'COPY_FETCHING':
+            return {
+                ...state,
+                fcopy: true
+            };
+        case 'COMPREHENSIVES_FETCHING':
+            return {
+                ...state,
+                fcomprehensives: true
+            };
+        case 'COUPONS_FETCHING':
+            return {
+                ...state,
+                fcoupons: true,
+            };
+        case 'PRICES_FETCHING_SUCCESS':
+            return {
+                ...state,
+                fprices: false,
+                prices: action.prices
+            };
+        case 'REGISTRATIONS_FETCHING_SUCCESS':
+            return {
+                ...state,
+                fregistrations: false,
+                registrations: action.registrations
             };
         case 'WORKSHOPS_FETCHING_SUCCESS':
             return {
@@ -50,21 +74,11 @@ export function admin(state = initialState, action) {
                 workshopsfetching: false,
                 workshops: action.workshops
             };
-        case 'LATEDATE_FETCHING':
-            return {
-                ...state,
-                latedatefetching: true
-            };
         case 'LATEDATE_FETCHING_SUCCESS':
             return {
                 ...state,
                 latedatefetching: false,
                 latedate: action.latedate
-            };
-        case 'COPY_FETCHING':
-            return {
-                ...state,
-                copyfetching: true
             };
         case 'COPY_FETCHING_SUCCESS':
             return {
@@ -77,21 +91,26 @@ export function admin(state = initialState, action) {
                 ...state,
                 copy: action.copy
             };
-        case 'COMPREHENSIVES_FETCHING':
+        case 'MAKE_WORKSHOP':
             return {
                 ...state,
-                comprehensivesfetching: true
+                tempworkshop: action.workshop
+            };
+        case 'MAKE_COMPREHENSIVE':
+            return {
+                ...state,
+                tempcomprehensive: action.comprehensive
+            };
+        case 'MAKE_PRICE':
+            return {
+                ...state,
+                tempprice: action.price
             };
         case 'COMPREHENSIVES_FETCHING_SUCCESS':
             return {
                 ...state,
                 comprehensivesfetching: false,
                 comprehensives: action.comprehensives
-            };
-        case 'COUPONS_FETCHING':
-            return {
-                ...state,
-                couponsfetching: true,
             };
         case 'COUPONS_FETCHING_SUCCESS':
             return {
