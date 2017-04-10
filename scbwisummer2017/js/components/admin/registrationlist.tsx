@@ -20,15 +20,15 @@ export default class RegistrationList extends React.Component<any, any> {
         return this.props.admin.registrations.map((item, index) => {
             return (
                 <TableRow key={item.id}>
-                    <TableRowColumn>{item.Name}</TableRowColumn>
-                    <TableRowColumn>{item.Comprehensive}</TableRowColumn>
-                    <TableRowColumn>{item.Workshop}</TableRowColumn>
-                    <TableRowColumn>{item.Manuscripts}</TableRowColumn>
-                    <TableRowColumn>{item.Portfolios}</TableRowColumn>
-                    <TableRowColumn>{item.Coupon}</TableRowColumn>
-                    <TableRowColumn>{item.Subtotal}</TableRowColumn>
-                    <TableRowColumn>{item.Total}</TableRowColumn>
-                    <TableRowColumn>{item.Submitted}</TableRowColumn>
+                    <TableRowColumn>{item.user.firstname} {item.user.lastname}</TableRowColumn>
+                    <TableRowColumn>{item.comprehensive ? item.comprehensive.title : "None"}</TableRowColumn>
+                    <TableRowColumn>{item.workshop.title}</TableRowColumn>
+                    <TableRowColumn>{item.manuscript}</TableRowColumn>
+                    <TableRowColumn>{item.portfolio}</TableRowColumn>
+                    <TableRowColumn>{item.coupon ? item.coupon.text : "None"}</TableRowColumn>
+                    <TableRowColumn>{item.subtotal}</TableRowColumn>
+                    <TableRowColumn>{item.total}</TableRowColumn>
+                    <TableRowColumn>{item.submitted}</TableRowColumn>
                 </TableRow>
             );
         });

@@ -28,6 +28,8 @@ namespace scbwisummer2017.Models.Data
         {
             user = new ApplicationUser();
 
+            user.firstname = r.user.firstname;
+            user.lastname = r.user.lastname;
             user.address1 = r.user.address1;
             user.address2 = r.user.address2;
             user.city = r.user.city;

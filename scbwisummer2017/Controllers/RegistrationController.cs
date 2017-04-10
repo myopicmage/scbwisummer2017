@@ -136,6 +136,7 @@ namespace scbwisummer2017.Controllers
                 reg.paid = DateTime.Now;
                 reg.submitted = DateTime.Now;
                 reg.created = DateTime.Now;
+                reg.modified = DateTime.Now;
 
                 _db.Registrations.Add(reg);
 
