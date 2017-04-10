@@ -53,7 +53,12 @@ export default class Tracks extends React.Component<any, any> {
                     </RadioButtonGroup>
                 </div>
                 <div style={{marginTop: '20px'}}>
-                    <RaisedButton label="Continue" onClick={this.continue} primary={true} containerElement={<Link to="/register/4" />} />
+                    <RaisedButton 
+                        label="Continue" 
+                        onClick={this.continue} 
+                        primary={true} 
+                        containerElement={<Link to="/register/4" />} 
+                        disabled={this.props.registration.track <= 0} />
                 </div>
             </div>
         );

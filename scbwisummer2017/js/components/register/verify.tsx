@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import * as braintree from 'braintree-web';
 import { fetchToken } from '../../redux/actions/regData';
 import { setNonce, calculateTotal, register, setCoupon, registerFree } from '../../redux/actions/registration';
+import Dialog from 'material-ui/Dialog';
 
 @connect(state => {
     return {
@@ -18,6 +19,11 @@ import { setNonce, calculateTotal, register, setCoupon, registerFree } from '../
 export default class Verify extends React.Component<any, any> {
     constructor() {
         super();
+
+        this.state = {
+            open: false,
+            modalText: "Please look for a paypal window if you don't see one. If you're on a phone, it may be in another tab."
+        };
     }
 
     componentWillMount = () => {
@@ -87,6 +93,8 @@ export default class Verify extends React.Component<any, any> {
                         }));
                     }
 
+                    this.setState({open: true});
+
                     paypalInstance.tokenize({
                         flow: 'checkout',
                         amount: registration.total,
@@ -94,6 +102,8 @@ export default class Verify extends React.Component<any, any> {
                         locale: 'en_US',
                     },
                     (err, tokenizationPayload) => {
+                        this.setState({modalText: "PayPal response received. Processing..."});
+
                         dispatch(setNonce(tokenizationPayload.nonce));
                         dispatch(register({ ...registration, nonce: tokenizationPayload.nonce }, user,
                             () => {
@@ -186,6 +196,11 @@ export default class Verify extends React.Component<any, any> {
                         </div>
                     </div>
                 </div>
+                <Dialog 
+                    open={this.state.open} 
+                    title={this.state.modalText}
+                    modal={true}
+                    actions={[]} />
             </div>
         );
     }
