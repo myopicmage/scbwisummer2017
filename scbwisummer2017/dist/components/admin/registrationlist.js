@@ -24,7 +24,7 @@ var RegistrationList = (function (_super) {
         };
         _this.renderRegistrations = function () {
             return _this.props.admin.registrations.map(function (item, index) {
-                return (React.createElement(Table_1.TableRow, { striped: index % 2 == 0 },
+                return (React.createElement(Table_1.TableRow, { striped: index % 2 == 0, key: item.id },
                     React.createElement(Table_1.TableRowColumn, null, item.Name),
                     React.createElement(Table_1.TableRowColumn, null, item.Comprehensive),
                     React.createElement(Table_1.TableRowColumn, null, item.Workshop),
