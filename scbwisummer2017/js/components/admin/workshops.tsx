@@ -60,7 +60,7 @@ export default class Workshops extends React.Component<any, any> {
                             <TableHeaderColumn>Num Attendees</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
+                    <TableBody stripedRows={true}>
                         {this.renderWorkshops()}
                         <TableRow>
                             <TableRowColumn>

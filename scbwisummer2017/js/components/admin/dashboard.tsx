@@ -51,7 +51,7 @@ export default class Dashboard extends React.Component<any, any> {
                             <TableHeaderColumn>Submitted</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
+                    <TableBody stripedRows={true}>
                         {this.renderRegistrations()}
                     </TableBody>
                 </Table>

@@ -32,7 +32,7 @@ export default class MemberSelect extends React.Component<any, any> {
                         Are you a member?
                     </h2>
                 </div>
-                <div className="pure-u-1-4">
+                <div className="pure-u-1 pure-u-md-1-4">
                     <RaisedButton
                         label="Yes"
                         primary={true}

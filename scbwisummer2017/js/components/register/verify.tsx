@@ -18,16 +18,12 @@ import { setNonce, calculateTotal, register, setCoupon, registerFree } from '../
 export default class Verify extends React.Component<any, any> {
     constructor() {
         super();
-        
-        this.state = {
-            ready: false
-        };
     }
 
     componentWillMount = () => {
         const { dispatch } = this.props;
 
-        dispatch(fetchToken());
+        dispatch(fetchToken(this.setupButton));
         dispatch(calculateTotal(this.props.registration, this.props.user));
     }
 
@@ -80,19 +76,17 @@ export default class Verify extends React.Component<any, any> {
 
         const { registration, dispatch, router, user } = this.props;
 
-        if (registration.total == 0) {
-            dispatch(registerFree(registration, user, () => {
-                router.push({
-                    pathname: '/register/6'
-                });
-            }));
-
-            return;
-        }
-
         braintree.client.create({ authorization: this.props.regData.paypaltoken }, (clientErr, clientInstance) => {
             braintree.paypal.create({ client: clientInstance }, (err, paypalInstance) => {
                 ppbutton.addEventListener('click', () => {
+                    if (registration.total == 0) {
+                        dispatch(registerFree(registration, user, () => {
+                            router.push({
+                                pathname: '/register/6'
+                            });
+                        }));
+                    }
+
                     paypalInstance.tokenize({
                         flow: 'checkout',
                         amount: registration.total,
@@ -101,7 +95,7 @@ export default class Verify extends React.Component<any, any> {
                     },
                     (err, tokenizationPayload) => {
                         dispatch(setNonce(tokenizationPayload.nonce));
-                        dispatch(register({...registration, nonce: tokenizationPayload.nonce}, user,
+                        dispatch(register({ ...registration, nonce: tokenizationPayload.nonce }, user,
                             () => {
                                 router.push({
                                     pathname: '/register/6'
@@ -113,7 +107,6 @@ export default class Verify extends React.Component<any, any> {
                         );
                     });
                 });
-                this.setState({ready: true});
             });
         });
     }
@@ -126,8 +119,8 @@ export default class Verify extends React.Component<any, any> {
                 <h1>Verify your choices</h1>
                 <div className="pure-u-1 pure-u-md-1-2">
                     <div>
-                        <Table>
-                            <TableBody>
+                        <Table selectable={false}>
+                            <TableBody displayRowCheckbox={false}>
                                 <TableRow>
                                     <TableRowColumn>Name</TableRowColumn>
                                     <TableRowColumn>
@@ -180,21 +173,17 @@ export default class Verify extends React.Component<any, any> {
                         <div>${registration.total}</div>
                     </div>
                     <div>
-                        <h3>If you're sure, click here to go to paypal:</h3>
-                            <RaisedButton label="I'm ready" onClick={this.setupButton} primary={true} style={{display: `${this.state.ready ? 'none' : 'block'}`}} /> 
-                            <button
+                        <h3>If you're sure, click here to submit:</h3>
+                        <div className="pure-u-1 pure-u-md-1-4">
+                            <RaisedButton
+                                label="Submit"
+                                primary={true}
                                 id="paypal-button"
                                 data-merchant="braintree"
                                 data-id="paypal-button"
-                                data-button="checkout"
-                                data-color="blue"
-                                data-size="medium"
-                                data-shape="pill"
                                 data-button_type="submit"
-                                data-button_disabled="false"
-                                style={{display: `${this.state.ready ? 'block' : 'none'}`}}>
-                                    Go
-                                </button>
+                                data-button_disabled="false" />
+                        </div>
                     </div>
                 </div>
             </div>

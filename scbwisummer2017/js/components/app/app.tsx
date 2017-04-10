@@ -24,7 +24,7 @@ export default class App extends React.Component<any, any> {
     render() {
         return (
             <div>
-                <AppBar title="SCBWI Summer 2017" iconClassNameRight="muidocs-icon-navigation-expand-more" />
+                <AppBar title="SCBWI" />
                 <div className="main">
                     <div className="pure-g">
                         {this.props.children}

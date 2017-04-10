@@ -59,7 +59,7 @@ export default class Prices extends React.Component<any, any> {
                             <TableHeaderColumn>Value</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
+                    <TableBody stripedRows={true}>
                         {this.renderPricesList()}
                         <TableRow>
                             <TableRowColumn>

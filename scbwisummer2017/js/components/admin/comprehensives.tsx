@@ -60,7 +60,7 @@ export default class Comprehensives extends React.Component<any, any> {
                             <TableHeaderColumn>Num Attendees</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
+                    <TableBody stripedRows={true}>
                         {this.renderComprehensives()}
                         <TableRow>
                             <TableRowColumn>

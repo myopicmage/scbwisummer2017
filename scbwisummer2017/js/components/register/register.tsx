@@ -16,15 +16,17 @@ export default class Register extends React.Component<any, any> {
         super();
     }
 
+    width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
     componentWillMount = () => {
         const page = this.props.params.page || '0';
 
         const {seenbasic, seenmember, seentracks, seencritiques} = this.props.registration;
 
         if (!seenmember || !seenbasic || !seentracks || !seencritiques) {
-            this.props.router.push({
+            /*this.props.router.push({
                 pathname: '/register'
-            });
+            });*/
         }
     }
 
@@ -38,8 +40,12 @@ export default class Register extends React.Component<any, any> {
     render() {
         return (
             <div className="pure-u-1">
+                <Paper zDepth={3} style={{ padding: '20px' }}>
+                    {this.props.children}
+                </Paper>
+                <br />
                 <Paper zDepth={3}>
-                    <Stepper linear={false} activeStep={Number(this.props.params.page)}>
+                    <Stepper linear={false} activeStep={Number(this.props.params.page)} orientation={this.width < 769 ? "vertical" : "horizontal"}>
                         <Step>
                             <StepButton containerElement={<Link to="/register" />}>
                                 Member
@@ -76,10 +82,6 @@ export default class Register extends React.Component<any, any> {
                             </StepLabel>
                         </Step>
                     </Stepper>
-                </Paper>
-                <br />
-                <Paper zDepth={3} style={{ padding: '20px' }}>
-                    {this.props.children}
                 </Paper>
             </div>
         );

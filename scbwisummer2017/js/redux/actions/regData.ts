@@ -127,7 +127,7 @@ function fetchingPricesSuccess(prices) {
     };
 }
 
-export function fetchToken() {
+export function fetchToken(callback) {
     return dispatch => {
         $.ajax({
             method: 'post',
@@ -136,6 +136,7 @@ export function fetchToken() {
         .done(response => {
             if (response.success) {
                 dispatch(setToken(response.data));
+                callback();
             }
         });
     }

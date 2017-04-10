@@ -52,7 +52,7 @@ export default class RegistrationList extends React.Component<any, any> {
                             <TableHeaderColumn>Submitted</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
+                    <TableBody stripedRows={true}>
                         {this.renderRegistrations()}
                     </TableBody>
                 </Table>
