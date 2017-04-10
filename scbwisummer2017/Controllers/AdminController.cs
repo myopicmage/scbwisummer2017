@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using scbwisummer2017.Models.Data;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace scbwisummer2017.Controllers
 {
@@ -109,7 +110,12 @@ namespace scbwisummer2017.Controllers
         }
 
         public IActionResult Registrations(int number) {
-            var reg = _db.Registrations.OrderByDescending(x => x.created);
+            var reg = _db.Registrations
+                .Include(x => x.user)
+                .Include(x => x.coupon)
+                .Include(x => x.comprehensive)
+                .Include(x => x.workshop)
+                .OrderByDescending(x => x.created);
 
             if (number > 0) {
                 return Success(reg.Take(number).ToList());
