@@ -24,16 +24,19 @@ var Dashboard = (function (_super) {
         };
         _this.renderRegistrations = function () {
             return _this.props.admin.registrations.map(function (item, index) {
-                return (React.createElement(Table_1.TableRow, { striped: index % 2 == 0 },
-                    React.createElement(Table_1.TableRowColumn, null, item.Name),
-                    React.createElement(Table_1.TableRowColumn, null, item.Comprehensive),
-                    React.createElement(Table_1.TableRowColumn, null, item.Workshop),
-                    React.createElement(Table_1.TableRowColumn, null, item.Manuscripts),
-                    React.createElement(Table_1.TableRowColumn, null, item.Portfolios),
-                    React.createElement(Table_1.TableRowColumn, null, item.Coupon),
-                    React.createElement(Table_1.TableRowColumn, null, item.Subtotal),
-                    React.createElement(Table_1.TableRowColumn, null, item.Total),
-                    React.createElement(Table_1.TableRowColumn, null, item.Submitted)));
+                return (React.createElement(Table_1.TableRow, { key: item.id },
+                    React.createElement(Table_1.TableRowColumn, null,
+                        item.user.firstname,
+                        " ",
+                        item.user.lastname),
+                    React.createElement(Table_1.TableRowColumn, null, item.comprehensive ? item.comprehensive.title : "None"),
+                    React.createElement(Table_1.TableRowColumn, null, item.workshop.title),
+                    React.createElement(Table_1.TableRowColumn, null, item.manuscript),
+                    React.createElement(Table_1.TableRowColumn, null, item.portfolio),
+                    React.createElement(Table_1.TableRowColumn, null, item.coupon ? item.coupon.text : "None"),
+                    React.createElement(Table_1.TableRowColumn, null, item.subtotal),
+                    React.createElement(Table_1.TableRowColumn, null, item.total),
+                    React.createElement(Table_1.TableRowColumn, null, item.submitted)));
             });
         };
         return _this;

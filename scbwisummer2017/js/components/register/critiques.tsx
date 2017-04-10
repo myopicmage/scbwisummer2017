@@ -25,6 +25,9 @@ export default class Critiques extends React.Component<any, any> {
     handleSelect = (event, value) => {
         const {dispatch} = this.props;
         
+        console.log('event', event);
+        console.log('value', value);
+        
         switch (event.target.name) {
             case 'manuscript':
                 dispatch(setManuscriptCritiques(value));
@@ -48,7 +51,7 @@ export default class Critiques extends React.Component<any, any> {
                 <div dangerouslySetInnerHTML={this.createMarkup()} />
                 <h4>Manuscript Critiques</h4>
                 <div>
-                    <RadioButtonGroup name="manuscript" defaultSelected={0}>
+                    <RadioButtonGroup name="manuscript" defaultSelected={0} onChange={this.handleSelect}>
                         <RadioButton label="0 (+$0)" value={0} />
                         <RadioButton label="1 (+$50)" value={1} />
                         <RadioButton label="2 (+$100)" value={2} />
@@ -59,7 +62,7 @@ export default class Critiques extends React.Component<any, any> {
 
                 <h4>Portfolio Reviews</h4>
                 <div>
-                    <RadioButtonGroup name="portfolio" defaultSelected={0}>
+                    <RadioButtonGroup name="portfolio" defaultSelected={0} onChange={this.handleSelect}>
                         <RadioButton label="0 (+$0)" value={0} />
                         <RadioButton label="1 (+$50)" value={1} />
                         <RadioButton label="2 (+$100)" value={2} />
