@@ -23,6 +23,9 @@ var Register = (function (_super) {
             var page = _this.props.params.page || '0';
             var _a = _this.props.registration, seenbasic = _a.seenbasic, seenmember = _a.seenmember, seentracks = _a.seentracks, seencritiques = _a.seencritiques;
             if (!seenmember || !seenbasic || !seentracks || !seencritiques) {
+                _this.props.router.push({
+                    pathname: '/register'
+                });
             }
         };
         _this.allowVerify = function () {

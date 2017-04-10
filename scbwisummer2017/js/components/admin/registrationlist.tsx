@@ -19,7 +19,7 @@ export default class RegistrationList extends React.Component<any, any> {
     renderRegistrations = () => {
         return this.props.admin.registrations.map((item, index) => {
             return (
-                <TableRow striped={index % 2 == 0}>
+                <TableRow striped={index % 2 == 0} key={item.id}>
                     <TableRowColumn>{item.Name}</TableRowColumn>
                     <TableRowColumn>{item.Comprehensive}</TableRowColumn>
                     <TableRowColumn>{item.Workshop}</TableRowColumn>

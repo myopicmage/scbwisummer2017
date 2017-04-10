@@ -11,7 +11,7 @@ var Complete = (function (_super) {
         return _super.call(this) || this;
     }
     Complete.prototype.render = function () {
-        return (React.createElement("div", null, "complete"));
+        return (React.createElement("div", null, "Congratulations! Your registration has been received!"));
     };
     return Complete;
 }(React.Component));
