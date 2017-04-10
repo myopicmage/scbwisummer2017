@@ -1,12 +1,13 @@
 const initialState = {
     track: -1,
     comprehensive: -1,
-    manuscriptcritiques: -1,
-    portfoliocritiques: -1,
+    manuscriptcritiques: 0,
+    portfoliocritiques: 0,
     coupon: '',
     fetchingtotal: false,
     subtotal: 0,
     total: 0,
+    nonce: '',
     seenmember: false,
     seenbasic: false,
     seencomprehensives: false,
@@ -77,6 +78,11 @@ export function registration(state = initialState, action) {
             return {
                 ...state,
                 seencritiques: true
+            };
+        case 'SET_NONCE':
+            return {
+                ...state,
+                nonce: action.nonce
             };
         default:
             return { ...state };

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import { setComprehensive, seenBasic, seenComprehensives } from '../../redux/actions/registration';
+import { Link } from 'react-router';
 
 @connect(state => {
     return {
@@ -14,6 +16,12 @@ export default class Comprehensives extends React.Component<any, any> {
         super();
     }
 
+    componentDidMount = () => {
+        const {dispatch} = this.props;
+
+        //dispatch(seenBasic());
+    }
+
     createMarkup = () => {
         return {
             __html: this.props.regData.copy.comprehensive
@@ -21,7 +29,9 @@ export default class Comprehensives extends React.Component<any, any> {
     }
 
     handleSelect = (event, value) => {
+        const {dispatch} = this.props;
 
+        dispatch(setComprehensive(value));
     }
 
     makeList = () => {
@@ -33,7 +43,9 @@ export default class Comprehensives extends React.Component<any, any> {
     }
 
     continue = () => {
+        const {dispatch} = this.props;
 
+        dispatch(seenComprehensives());
     }
 
     render() {
@@ -47,7 +59,7 @@ export default class Comprehensives extends React.Component<any, any> {
                     </RadioButtonGroup>
                 </div>
                 <div style={{marginTop: '20px'}}>
-                    <RaisedButton label="Continue" onClick={this.continue} primary={true} />
+                    <RaisedButton label="Continue" onClick={this.continue} primary={true} containerElement={<Link to="/register/3" />} />
                 </div>
             </div>
         );

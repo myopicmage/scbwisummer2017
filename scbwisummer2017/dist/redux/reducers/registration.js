@@ -10,12 +10,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 var initialState = {
     track: -1,
     comprehensive: -1,
-    manuscriptcritiques: -1,
-    portfoliocritiques: -1,
+    manuscriptcritiques: 0,
+    portfoliocritiques: 0,
     coupon: '',
     fetchingtotal: false,
     subtotal: 0,
     total: 0,
+    nonce: '',
     seenmember: false,
     seenbasic: false,
     seencomprehensives: false,
@@ -46,7 +47,11 @@ function registration(state, action) {
         case 'SEEN_COMPREHENSIVES':
             return __assign({}, state, { seencomprehensives: true });
         case 'SEEN_TRACKS':
+            return __assign({}, state, { seentracks: true });
+        case 'SEEN_CRITIQUES':
             return __assign({}, state, { seencritiques: true });
+        case 'SET_NONCE':
+            return __assign({}, state, { nonce: action.nonce });
         default:
             return __assign({}, state);
     }

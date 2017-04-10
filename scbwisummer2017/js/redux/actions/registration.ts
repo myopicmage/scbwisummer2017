@@ -35,20 +35,79 @@ export function setCoupon(coupon) {
     };
 }
 
-export function calculateTotal(registration) {
+export function calculateTotal(registration, user) {
     return dispatch => {
         dispatch(fetchingTotal());
+
+        registration.user = user;
 
         $.ajax({
             method: 'post',
             url: '/registration/calctotal',
-            data: registration
+            data: JSON.stringify(registration),
+            contentType: 'application/json'
         })
         .done(response => {
             if (response.success) {
-                dispatch(setTotal(response.total, response.subtotal));
+                dispatch(setTotal(response.data.total, response.data.subtotal));
             }
         });
+    };
+}
+
+export function register(registration, user, success, failure) {
+    return dispatch => {
+        dispatch(pendingRegistration());
+
+        registration.user = user;
+
+        $.ajax({
+            method: 'post',
+            url: '/registration/register',
+            data: JSON.stringify(registration),
+            contentType: 'application/json'
+        })
+        .done(response => {
+            if (response.success) {
+                dispatch(registrationSuccess());
+                success();
+            } else {
+                failure();
+            }
+        });
+    }
+}
+
+export function registerFree(registration, user, success) {
+    return dispatch => {
+        dispatch(pendingRegistration());
+
+        registration.user = user;
+
+        $.ajax({
+            method: 'post',
+            url: '/registration/register',
+            data: JSON.stringify(registration),
+            contentType: 'application/json'
+        })
+        .done(response => {
+            if (response.success) {
+                dispatch(registrationSuccess());
+                success();
+            }
+        });
+    }
+}
+
+function pendingRegistration() {
+    return {
+        type: 'SUBMITTING_REGISTRATION'
+    };
+}
+
+function registrationSuccess() {
+    return {
+        type: 'REGISTRATION_SUCCESS'
     };
 }
 
@@ -63,6 +122,13 @@ function setTotal(total, subtotal) {
         type: 'SET_TOTAL',
         total,
         subtotal
+    };
+}
+
+export function setNonce(nonce) {
+    return {
+        type: 'SET_NONCE',
+        nonce
     };
 }
 

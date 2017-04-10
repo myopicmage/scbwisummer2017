@@ -354,6 +354,8 @@ namespace scbwisummer2017.Data.Migrations
 
                     b.Property<bool>("ismember");
 
+                    b.Property<int>("manuscript");
+
                     b.Property<DateTime>("modified");
 
                     b.Property<string>("modifiedby");
@@ -362,7 +364,13 @@ namespace scbwisummer2017.Data.Migrations
 
                     b.Property<string>("paypalid");
 
+                    b.Property<int>("portfolio");
+
                     b.Property<DateTime>("submitted");
+
+                    b.Property<decimal>("subtotal");
+
+                    b.Property<decimal>("total");
 
                     b.Property<string>("userId");
 
@@ -447,7 +455,7 @@ namespace scbwisummer2017.Data.Migrations
             modelBuilder.Entity("scbwisummer2017.Models.Data.Critique", b =>
                 {
                     b.HasOne("scbwisummer2017.Models.Data.Registration", "registration")
-                        .WithMany("critiques")
+                        .WithMany()
                         .HasForeignKey("registrationid");
                 });
 

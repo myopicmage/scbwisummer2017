@@ -11,9 +11,31 @@ var initialState = {
     tracks: [],
     comprehensives: [],
     step: 0,
+    lateDate: '',
+    copy: {
+        lateDate: '',
+        workshop: '',
+        comprehensive: '',
+        frontpage: '',
+        critique: ''
+    },
+    prices: {
+        workshop: {
+            member: 0,
+            nonmember: 0
+        },
+        comprehensive: {
+            member: 0
+        },
+        critique: {
+            regular: 0
+        }
+    },
     fetchingTracks: false,
     fetchingComprehensives: false,
-    lateDate: ''
+    fetchingCopy: false,
+    fetchingPrices: false,
+    paypaltoken: ''
 };
 function regData(state, action) {
     if (state === void 0) { state = initialState; }
@@ -28,6 +50,16 @@ function regData(state, action) {
             return __assign({}, state, { fetchingComprehensives: true });
         case 'FETCH_COMPREHENSIVES_SUCCESS':
             return __assign({}, state, { fetchingComprehensives: false, comprehensives: action.comprehensives });
+        case 'FETCHING_COPY':
+            return __assign({}, state, { fetchingCopy: true });
+        case 'FETCHING_COPY_SUCCESS':
+            return __assign({}, state, { copy: action.copy });
+        case 'FETCHING_PRICES':
+            return __assign({}, state, { fetchingPrices: true });
+        case 'FETCHING_PRICES_SUCCESS':
+            return __assign({}, state, { fetchingPrices: false, prices: action.prices });
+        case 'SET_TOKEN':
+            return __assign({}, state, { paypaltoken: action.token });
         default:
             return __assign({}, state);
     }

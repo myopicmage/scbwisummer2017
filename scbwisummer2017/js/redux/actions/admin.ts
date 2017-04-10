@@ -23,7 +23,8 @@ export function addPrice(price) {
         $.ajax({
             method: 'post',
             url: '/admin/prices',
-            data: price
+            data: JSON.stringify(price),
+            contentType: 'application/json'
         })
         .done(response => {
             if (response.success) {
@@ -129,7 +130,8 @@ export function addWorkshop(workshop) {
         $.ajax({
             method: 'post',
             url: '/admin/workshops',
-            data: workshop
+            data: JSON.stringify(workshop),
+            contentType: 'application/json'
         })
         .done(response => {
             if (response.success) {

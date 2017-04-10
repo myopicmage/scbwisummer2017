@@ -13,11 +13,14 @@ namespace scbwisummer2017.Models.Data
         public virtual ApplicationUser user { get; set; }
         public virtual Comprehensive comprehensive { get; set; }
         public virtual Workshop workshop { get; set; }
-        public virtual ICollection<Critique> critiques { get; set; }
         public virtual Coupon coupon { get; set; }
+        public int portfolio { get; set; }
+        public int manuscript { get; set; }
         public string paypalid { get; set; }
         public DateTime submitted { get; set; }
         public DateTime paid { get; set; }
+        public decimal subtotal { get; set; }
+        public decimal total { get; set; }
 
         public Registration() { }
 
@@ -25,16 +28,14 @@ namespace scbwisummer2017.Models.Data
         {
             user = new ApplicationUser();
 
-            user.firstname = r.user.first;
-            user.lastname = r.user.last;
-            user.phone = r.user.phone;
-            user.postalcode = r.user.zip;
             user.address1 = r.user.address1;
             user.address2 = r.user.address2;
             user.city = r.user.city;
             user.Email = r.user.email;
+            user.phone = r.user.phone;
+            user.state = r.user.province;
+            user.postalcode = r.user.postal;
             user.UserName = r.user.email;
-            user.state = r.user.state;
         }
     }
 }

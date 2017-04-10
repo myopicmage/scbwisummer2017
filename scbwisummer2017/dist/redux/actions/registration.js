@@ -35,22 +35,75 @@ function setCoupon(coupon) {
     };
 }
 exports.setCoupon = setCoupon;
-function calculateTotal(registration) {
+function calculateTotal(registration, user) {
     return function (dispatch) {
         dispatch(fetchingTotal());
+        registration.user = user;
         $.ajax({
             method: 'post',
             url: '/registration/calctotal',
-            data: registration
+            data: JSON.stringify(registration),
+            contentType: 'application/json'
         })
             .done(function (response) {
             if (response.success) {
-                dispatch(setTotal(response.total, response.subtotal));
+                dispatch(setTotal(response.data.total, response.data.subtotal));
             }
         });
     };
 }
 exports.calculateTotal = calculateTotal;
+function register(registration, user, success, failure) {
+    return function (dispatch) {
+        dispatch(pendingRegistration());
+        registration.user = user;
+        $.ajax({
+            method: 'post',
+            url: '/registration/register',
+            data: JSON.stringify(registration),
+            contentType: 'application/json'
+        })
+            .done(function (response) {
+            if (response.success) {
+                dispatch(registrationSuccess());
+                success();
+            }
+            else {
+                failure();
+            }
+        });
+    };
+}
+exports.register = register;
+function registerFree(registration, user, success) {
+    return function (dispatch) {
+        dispatch(pendingRegistration());
+        registration.user = user;
+        $.ajax({
+            method: 'post',
+            url: '/registration/register',
+            data: JSON.stringify(registration),
+            contentType: 'application/json'
+        })
+            .done(function (response) {
+            if (response.success) {
+                dispatch(registrationSuccess());
+                success();
+            }
+        });
+    };
+}
+exports.registerFree = registerFree;
+function pendingRegistration() {
+    return {
+        type: 'SUBMITTING_REGISTRATION'
+    };
+}
+function registrationSuccess() {
+    return {
+        type: 'REGISTRATION_SUCCESS'
+    };
+}
 function fetchingTotal() {
     return {
         type: 'FETCHING_TOTAL'
@@ -63,6 +116,13 @@ function setTotal(total, subtotal) {
         subtotal: subtotal
     };
 }
+function setNonce(nonce) {
+    return {
+        type: 'SET_NONCE',
+        nonce: nonce
+    };
+}
+exports.setNonce = setNonce;
 function seenMember() {
     return {
         type: 'SEEN_MEMBER'
@@ -87,4 +147,10 @@ function seenTracks() {
     };
 }
 exports.seenTracks = seenTracks;
+function seenCritiques() {
+    return {
+        type: 'SEEN_CRITIQUES'
+    };
+}
+exports.seenCritiques = seenCritiques;
 //# sourceMappingURL=registration.js.map

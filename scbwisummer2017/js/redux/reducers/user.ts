@@ -1,19 +1,6 @@
-﻿export interface user {
-    firstname: string;
-    lastname: string;
-    address1: string;
-    address2: string;
-    city: string;
-    province: string;
-    postal: string;
-    email: string;
-    phone: string;
-    country: string;
-    member: boolean;
-    valid: boolean;
-}
+﻿import { IUser } from '../interfaces';
 
-const initialState : user = {
+const initialState : IUser = {
     firstname: '',
     lastname: '',
     address1: '',

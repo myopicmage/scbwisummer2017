@@ -126,3 +126,24 @@ function fetchingPricesSuccess(prices) {
         prices
     };
 }
+
+export function fetchToken() {
+    return dispatch => {
+        $.ajax({
+            method: 'post',
+            url: '/registration/gettoken'
+        })
+        .done(response => {
+            if (response.success) {
+                dispatch(setToken(response.data));
+            }
+        });
+    }
+}
+
+function setToken(token) {
+    return {
+        type: 'SET_TOKEN',
+        token
+    };
+}

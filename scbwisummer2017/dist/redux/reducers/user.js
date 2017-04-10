@@ -18,7 +18,7 @@ var initialState = {
     email: '',
     phone: '',
     member: false,
-    country: '',
+    country: 'US',
     valid: false
 };
 function user(state, action) {

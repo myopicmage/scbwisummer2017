@@ -33,7 +33,7 @@ export default class Workshops extends React.Component<any, any> {
     }
 
     renderWorkshops = () => {
-        return this.props.admin.comprehensives.map((item, index) => {
+        return this.props.admin.workshops.map((item, index) => {
             return (
                 <TableRow striped={index % 2 == 0} key={item.id}>
                     <TableRowColumn>{item.title}</TableRowColumn>

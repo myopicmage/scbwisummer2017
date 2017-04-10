@@ -13,8 +13,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var React = require("react");
 var react_redux_1 = require("react-redux");
 var user = require("../../redux/actions/user");
+var registration_1 = require("../../redux/actions/registration");
 var TextField_1 = require("material-ui/TextField");
+var SelectField_1 = require("material-ui/SelectField");
+var MenuItem_1 = require("material-ui/MenuItem");
 var RaisedButton_1 = require("material-ui/RaisedButton");
+var react_router_1 = require("react-router");
 var BasicInfo = (function (_super) {
     __extends(BasicInfo, _super);
     function BasicInfo() {
@@ -56,10 +60,13 @@ var BasicInfo = (function (_super) {
                     break;
             }
         };
+        _this.handleSelect = function (event, index, value) {
+            var dispatch = _this.props.dispatch;
+            dispatch(user.addCountry(value));
+        };
         _this.continue = function () {
-            _this.props.router.push({
-                pathname: '/register/2'
-            });
+            var dispatch = _this.props.dispatch;
+            dispatch(registration_1.seenBasic());
         };
         return _this;
     }
@@ -85,7 +92,11 @@ var BasicInfo = (function (_super) {
                     React.createElement("div", { className: "pure-u-1-3" },
                         React.createElement(TextField_1.default, { hintText: "State/Province", onChange: this.handleChange, name: "province", value: this.props.user.province })),
                     React.createElement("div", { className: "pure-u-1-3" },
-                        React.createElement(TextField_1.default, { hintText: "Zip/Postal", onChange: this.handleChange, name: "postalcode", value: this.props.user.postal })))),
+                        React.createElement(TextField_1.default, { hintText: "Zip/Postal", onChange: this.handleChange, name: "postalcode", value: this.props.user.postal })),
+                    React.createElement("br", null),
+                    React.createElement(SelectField_1.default, { floatingLabelText: "Country", onChange: this.handleSelect, value: this.props.user.country },
+                        React.createElement(MenuItem_1.default, { value: "US", primaryText: "US" }),
+                        React.createElement(MenuItem_1.default, { value: "Canada", primaryText: "Canada" })))),
             React.createElement("br", null),
             React.createElement("div", { className: "pure-u-1-2" },
                 React.createElement("h4", null, "Contact Information"),
@@ -94,7 +105,7 @@ var BasicInfo = (function (_super) {
                 React.createElement(TextField_1.default, { hintText: "Email", onChange: this.handleChange, name: "email", value: this.props.user.email })),
             React.createElement("br", null),
             React.createElement("div", { className: "pure-u-1-2", style: { marginTop: '20px' } },
-                React.createElement(RaisedButton_1.default, { label: "Continue", primary: true, onTouchTap: this.continue }))));
+                React.createElement(RaisedButton_1.default, { label: "Continue", primary: true, onTouchTap: this.continue, containerElement: React.createElement(react_router_1.Link, { to: "/register/2" }) }))));
     };
     return BasicInfo;
 }(React.Component));

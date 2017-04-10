@@ -3,13 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Step, Stepper, StepLabel, StepButton } from 'material-ui/Stepper';
 import Paper from 'material-ui/Paper';
-import MemberSelect from './memberselect';
-import BasicInfo from './basicinfo';
-import Comprehensives from './comprehensives';
-import Tracks from './tracks';
-import Critiques from './critiques';
-import Verify from './verify';
-import Complete from './complete';
 
 @connect(state => {
     return {
@@ -29,16 +22,10 @@ export default class Register extends React.Component<any, any> {
         const {seenbasic, seenmember, seentracks, seencritiques} = this.props.registration;
 
         if (!seenmember || !seenbasic || !seentracks || !seencritiques) {
-            /*this.props.router.push({
-                pathname: '/register/0'
-            });*/
+            this.props.router.push({
+                pathname: '/register'
+            });
         }
-    }
-
-    go = (page = 0) => {
-        this.props.router.push({
-            pathname: `/register/${page}`
-        });
     }
 
     allowVerify = () => {
@@ -54,36 +41,36 @@ export default class Register extends React.Component<any, any> {
                 <Paper zDepth={3}>
                     <Stepper linear={false} activeStep={Number(this.props.params.page)}>
                         <Step>
-                            <StepButton onClick={() => this.go(0)}>
+                            <StepButton containerElement={<Link to="/register" />}>
                                 Member
                             </StepButton>
                         </Step>
                         <Step disabled={!this.props.registration.seenmember}>
-                            <StepButton onClick={() => this.go(1)}>
+                            <StepButton containerElement={<Link to="/register/1" />}>
                                 Basic Information
                             </StepButton>
                         </Step>
                         <Step disabled={!this.props.user.member && !this.props.registration.seenbasic}>
-                            <StepButton onClick={() => this.go(2)}>
+                            <StepButton containerElement={<Link to="/register/2" />}>
                                 Friday Comprehensive
                             </StepButton>
                         </Step>
                         <Step disabled={!this.props.registration.seenbasic}>
-                            <StepButton onClick={() => this.go(3)}>
+                            <StepButton containerElement={<Link to="/register/3" />}>
                                 Track
                             </StepButton>
                         </Step>
                         <Step disabled={!this.props.registration.seentracks}>
-                            <StepButton onClick={() => this.go(4)}>
+                            <StepButton containerElement={<Link to="/register/4" />}>
                                 Critiques
                             </StepButton>
                         </Step>
                         <Step disabled={this.allowVerify()}>
-                            <StepButton onClick={() => this.go(5)}>
+                            <StepButton containerElement={<Link to="/register/5" />}>
                                 Verify
                             </StepButton>
                         </Step>
-                        <Step>
+                        <Step disabled={true}>
                             <StepLabel>
                                 Complete
                             </StepLabel>

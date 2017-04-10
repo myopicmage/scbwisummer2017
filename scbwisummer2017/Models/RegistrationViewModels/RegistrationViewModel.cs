@@ -7,20 +7,15 @@ namespace scbwisummer2017.Models.RegistrationViewModels
 {
     public class RegistrationViewModel
     {
+        public int track { get; set; }
         public int comprehensive { get; set; }
+        public int manuscriptcritiques { get; set; }
+        public int portfoliocritiques { get; set; }
         public string coupon { get; set; }
-        public int first { get; set; }
-        public int manuscripts { get; set; }
-        public int meal { get; set; }
-        public int portfolios { get; set; }
-        public int satdinner { get; set; }
-        public int second { get; set; }
-        public string takingbus { get; set; }
-        public int type { get; set; }
-        public UserViewModel user { get; set; }
-
+        public double subtotal { get; set; }
+        public double total { get; set; }
         public string nonce { get; set; }
-        public int id { get; set; }
+        public UserViewModel user { get; set; }
     }
 
     public class UserViewModel
@@ -30,10 +25,11 @@ namespace scbwisummer2017.Models.RegistrationViewModels
         public string city { get; set; }
         public string country { get; set; }
         public string email { get; set; }
-        public string first { get; set; }
-        public string last { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
         public string phone { get; set; }
-        public string state { get; set; }
-        public string zip { get; set; }
+        public string province { get; set; }
+        public string postal { get; set; }
+        public bool member { get; set; }
     }
 }

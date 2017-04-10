@@ -9,6 +9,7 @@ using Braintree;
 using scbwisummer2017.Data;
 using Microsoft.Extensions.Options;
 using scbwisummer2017.Models.RegistrationViewModels;
+using scbwisummer2017.Models.Data;
 
 namespace scbwisummer2017.Controllers
 {
@@ -26,13 +27,14 @@ namespace scbwisummer2017.Controllers
             _email = esvc;
         }
 
+        [HttpPost]
         public IActionResult GetToken()
         {
             try
             {
                 var token = _gateway.ClientToken.generate();
 
-                return Json(token);
+                return Success(data: token);
             }
             catch (Exception ex)
             {
@@ -81,6 +83,114 @@ namespace scbwisummer2017.Controllers
             };
 
             return Success(p);
+        }
+
+        public IActionResult CalcTotal([FromBody] RegistrationViewModel r) {
+            if (!ModelState.IsValid) {
+                return Failure("Whoops");
+            }
+
+            (var subtotal, var total) = CalcTotals(r);
+
+            return Success(new { subtotal = subtotal, total = total });
+        }
+
+        [HttpPost]
+        public IActionResult Register([FromBody] RegistrationViewModel r)
+        {
+            var reg = new Registration(r)
+            {
+                ismember = r.user.member,
+                comprehensive = _db.Comprehensives.SingleOrDefault(x => x.id == r.comprehensive),
+                coupon = _db.Coupons.SingleOrDefault(x => x.text == r.coupon),
+                workshop = _db.Workshops.SingleOrDefault(x => x.id == r.track),
+                portfolio = r.portfoliocritiques,
+                manuscript = r.manuscriptcritiques
+            };
+
+            (var subtotal, var total) = CalcTotals(r);
+
+            reg.subtotal = subtotal;
+            reg.total = total;
+
+            var request = new TransactionRequest
+            {
+                Amount = total,
+                MerchantAccountId = "USD",
+                PaymentMethodNonce = r.nonce,
+                Options = new TransactionOptionsRequest
+                {
+                    PayPal = new TransactionOptionsPayPalRequest
+                    {
+                        CustomField = reg.paypalid,
+                        Description = "SCBWI Florida June 2017 Conference",
+                    },
+                    SubmitForSettlement = true
+                }
+            };
+
+            var result = _gateway.Transaction.Sale(request);
+
+            if (result.IsSuccess())
+            {
+                reg.paid = DateTime.Now;
+                reg.submitted = DateTime.Now;
+
+                _db.Registrations.Add(reg);
+
+                _db.SaveChanges();
+
+                //TODO: EMAIL
+
+                return Success();
+            }
+
+            return Failure("dunno!");
+        }
+
+        private (decimal subtotal, decimal total) CalcTotals(RegistrationViewModel r)
+        {
+            var subtotal = 0m;
+            var total = 0.0m;
+            var late = _db.Dates.SingleOrDefault(x => x.name == "late");
+
+            subtotal += 50 * r.portfoliocritiques;
+            subtotal += 50 * r.manuscriptcritiques;
+
+            var w_price = _db.Prices.SingleOrDefault(x => x.member == r.user.member && x.late == (DateTime.Now > late.value) && x.type == "workshop");
+
+            subtotal += w_price.value;
+
+            if (r.comprehensive > 0)
+            {
+                var c_price = _db.Prices.SingleOrDefault(x => x.late == (DateTime.Now > late.value) && x.type == "comprehensive");
+
+                subtotal += c_price.value;
+            }
+
+            total = subtotal;
+
+            if (!string.IsNullOrEmpty(r.coupon))
+            {
+                var coupon = _db.Coupons.SingleOrDefault(x => x.text == r.coupon);
+
+                if (coupon != null)
+                {
+                    switch (coupon.type)
+                    {
+                        case CouponType.TotalCost:
+                            total = Convert.ToDecimal(coupon.value);
+                            break;
+                        case CouponType.PercentOff:
+                            var val = Convert.ToDecimal(coupon.value);
+                            var mult = 100 - (val / 100);
+                            total *= mult;
+                            break;
+                    }
+                }
+            }
+
+            return (subtotal, total);
         }
     }
 }

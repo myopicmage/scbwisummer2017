@@ -7,7 +7,9 @@ export default class Complete extends React.Component<any, any> {
 
     render() {
         return (
-            <div>complete</div>
+            <div>
+                Congratulations! Your registration has been received!
+            </div>
         );
     }
 }

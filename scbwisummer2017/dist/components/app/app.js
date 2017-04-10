@@ -23,6 +23,8 @@ var App = (function (_super) {
         var dispatch = this.props.dispatch;
         dispatch(regDataActions.fetchComprehensives());
         dispatch(regDataActions.fetchTracks());
+        dispatch(regDataActions.fetchCopy());
+        dispatch(regDataActions.fetchPrices());
     };
     App.prototype.render = function () {
         return (React.createElement("div", null,

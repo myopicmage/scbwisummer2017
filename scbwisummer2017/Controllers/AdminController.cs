@@ -118,7 +118,7 @@ namespace scbwisummer2017.Controllers
             return Success(reg.ToList());
         } 
 
-        public IActionResult Workshops() => Json(_db.Workshops.OrderBy(x => x.title).ToList());
+        public IActionResult Workshops() => Success(_db.Workshops.OrderBy(x => x.title).ToList());
 
         [HttpPost]
         public async Task<IActionResult> Workshops([FromBody] Workshop w)
@@ -132,6 +132,8 @@ namespace scbwisummer2017.Controllers
             w.modified = DateTime.Now;
             w.createdby = User.Identity.Name;
             w.modifiedby = User.Identity.Name;
+
+            _db.Workshops.Add(w);
 
             return await Save();
         }

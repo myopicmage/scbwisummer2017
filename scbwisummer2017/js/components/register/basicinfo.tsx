@@ -1,11 +1,12 @@
 ﻿import * as React from 'react';
 import { connect } from 'react-redux';
 import * as user from '../../redux/actions/user';
-import { seenBasic } from '../../redux/actions/registration';
+import { seenMember, seenBasic } from '../../redux/actions/registration';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router';
 
 @connect(state => ({ user: state.user }))
 export default class BasicInfo extends React.Component<any, any> {
@@ -62,10 +63,6 @@ export default class BasicInfo extends React.Component<any, any> {
         const {dispatch} = this.props;
 
         dispatch(seenBasic());
-
-        this.props.router.push({
-            pathname: '/register/2'
-        });
     }
 
     render() {
@@ -114,7 +111,7 @@ export default class BasicInfo extends React.Component<any, any> {
                 </div>
                 <br />
                 <div className="pure-u-1-2" style={{ marginTop: '20px' }}>
-                    <RaisedButton label="Continue" primary={true} onTouchTap={this.continue} />
+                    <RaisedButton label="Continue" primary={true} onTouchTap={this.continue} containerElement={<Link to="/register/2" />}/>
                 </div>
             </div>
         );

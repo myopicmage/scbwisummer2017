@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { setMember } from '../../redux/actions/user';
 import { seenMember } from '../../redux/actions/registration';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router';
 
 @connect(state => {
     return {
@@ -21,10 +22,6 @@ export default class MemberSelect extends React.Component<any, any> {
 
         dispatch(setMember(isMember));
         dispatch(seenMember());
-
-        this.props.router.push({
-            pathname: '/register/1'
-        });
     }
 
     render() {
@@ -41,12 +38,14 @@ export default class MemberSelect extends React.Component<any, any> {
                         primary={true}
                         style={{ marginRight: 12 }}
                         onTouchTap={() => this.handleMemberSet(true)}
+                        containerElement={<Link to='/register/1' />}
                     />
                     <RaisedButton
                         label="No"
                         secondary={true}
                         style={{ marginLeft: 12 }}
                         onTouchTap={() => this.handleMemberSet(false)}
+                        containerElement={<Link to='/register/1' />}
                     />
                 </div>
             </div>

@@ -25,7 +25,8 @@ const initialState = {
     fetchingTracks: false,
     fetchingComprehensives: false,
     fetchingCopy: false,
-    fetchingPrices: false
+    fetchingPrices: false,
+    paypaltoken: ''
 }
 
 export function regData(state = initialState, action) {
@@ -78,6 +79,11 @@ export function regData(state = initialState, action) {
                 fetchingPrices: false,
                 prices: action.prices
             }
+        case 'SET_TOKEN':
+            return {
+                ...state,
+                paypaltoken: action.token
+            };
         default:
             return {
                 ...state
