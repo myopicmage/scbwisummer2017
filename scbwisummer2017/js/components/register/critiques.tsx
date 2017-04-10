@@ -25,9 +25,6 @@ export default class Critiques extends React.Component<any, any> {
     handleSelect = (event, value) => {
         const {dispatch} = this.props;
         
-        console.log('event', event);
-        console.log('value', value);
-        
         switch (event.target.name) {
             case 'manuscript':
                 dispatch(setManuscriptCritiques(value));

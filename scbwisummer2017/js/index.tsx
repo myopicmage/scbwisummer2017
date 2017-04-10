@@ -43,6 +43,7 @@ render((
                     <Route path="/dashboard/copy" component={Admin.Copy} />
                     <Route path="/dashboard/critiques" component={Admin.Critiques} />
                     <Route path="/dashboard/workshops" component={Admin.Workshops} />
+                    <Route path="/dashboard/coupons" component={Admin.Coupons} />
                 </Route>
                 <Route path="*" component={Error404} />
             </Router>
