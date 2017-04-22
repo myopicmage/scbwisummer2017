@@ -159,9 +159,11 @@ namespace scbwisummer2017.Controllers
             subtotal += 50 * r.portfoliocritiques;
             subtotal += 50 * r.manuscriptcritiques;
 
-            var w_price = _db.Prices.SingleOrDefault(x => x.member == r.user.member && x.late == (DateTime.Now > late.value) && x.type == "workshop");
+            if (r.track > 0) {
+                var w_price = _db.Prices.SingleOrDefault(x => x.member == r.user.member && x.late == (DateTime.Now > late.value) && x.type == "workshop");
 
-            subtotal += w_price.value;
+                subtotal += w_price.value;
+            }
 
             if (r.comprehensive > 0)
             {

@@ -93,7 +93,7 @@ export default class Verify extends React.Component<any, any> {
                         }));
                     }
 
-                    this.setState({open: true});
+                    this.setState({ open: true });
 
                     paypalInstance.tokenize({
                         flow: 'checkout',
@@ -102,7 +102,7 @@ export default class Verify extends React.Component<any, any> {
                         locale: 'en_US',
                     },
                     (err, tokenizationPayload) => {
-                        this.setState({modalText: "PayPal response received. Processing..."});
+                        this.setState({ modalText: "PayPal response received. Processing..." });
 
                         dispatch(setNonce(tokenizationPayload.nonce));
                         dispatch(register({ ...registration, nonce: tokenizationPayload.nonce }, user,
@@ -127,6 +127,7 @@ export default class Verify extends React.Component<any, any> {
         return (
             <div className="pure-u-1">
                 <h1>Verify your choices</h1>
+                <p>If you'd like to make any changes, please click the step below.</p>
                 <div className="pure-u-1 pure-u-md-1-2">
                     <div>
                         <Table selectable={false}>
@@ -170,13 +171,21 @@ export default class Verify extends React.Component<any, any> {
                                     <TableRowColumn>Subtotal</TableRowColumn>
                                     <TableRowColumn>${registration.subtotal}</TableRowColumn>
                                 </TableRow>
+                                <TableRow>
+                                    <TableRowColumn>
+                                        <b>Do you have a coupon?</b>
+                                    </TableRowColumn>
+                                    <TableRowColumn>
+                                        <div className="pure-u-2-3">
+                                            <TextField name="coupon" hintText="Enter it here" value={this.props.registration.coupon} onChange={this.handleCoupon} fullWidth={true} />
+                                        </div>
+                                        <div className="pure-u-1-3">
+                                            <RaisedButton label="Verify" secondary={true} onClick={this.submitCoupon} style={{float: 'right'}} />
+                                        </div>
+                                    </TableRowColumn>
+                                </TableRow>
                             </TableBody>
                         </Table>
-                    </div>
-                    <div>
-                        <h3>Do you have a coupon?</h3>
-                        <TextField name="coupon" hintText="Enter it here" value={this.props.registration.coupon} onChange={this.handleCoupon} />
-                        <RaisedButton label="Submit" secondary={true} onClick={this.submitCoupon} />
                     </div>
                     <div>
                         <h3>Total</h3>
@@ -186,7 +195,7 @@ export default class Verify extends React.Component<any, any> {
                         <h3>If you're sure, click here to submit:</h3>
                         <div className="pure-u-1 pure-u-md-1-4">
                             <RaisedButton
-                                label="Submit"
+                                label="Submit to PayPal"
                                 primary={true}
                                 id="paypal-button"
                                 data-merchant="braintree"
@@ -196,8 +205,8 @@ export default class Verify extends React.Component<any, any> {
                         </div>
                     </div>
                 </div>
-                <Dialog 
-                    open={this.state.open} 
+                <Dialog
+                    open={this.state.open}
                     title={this.state.modalText}
                     modal={true}
                     actions={[]} />
