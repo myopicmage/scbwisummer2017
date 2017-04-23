@@ -7,19 +7,36 @@ import MenuItem from 'material-ui/MenuItem';
 import { fetchComprehensives, fetchWorkshops } from '../../redux/actions/admin';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
-@connect(state => ({admin: state.admin, regData: state.regData}))
+@connect(state => ({ admin: state.admin, regData: state.regData }))
 export default class Add extends React.Component<any, any> {
     constructor() {
         super();
 
         this.state = {
-            user: {},
-            registration: {}
+            user: {
+                firstname: '',
+                lastname: '',
+                address1: '',
+                address2: '',
+                city: '',
+                province: '',
+                postal: '',
+                email: '',
+                phone: '',
+                member: false,
+                country: 'US',
+            },
+            registration: {
+                track: -1,
+                comprehensive: -1,
+                manuscriptcritiques: 0,
+                portfoliocritiques: 0,
+            }
         };
     }
 
     componentWillMount = () => {
-        const {dispatch} = this.props;
+        const { dispatch } = this.props;
 
         dispatch(fetchComprehensives());
         dispatch(fetchWorkshops());
@@ -62,7 +79,7 @@ export default class Add extends React.Component<any, any> {
     }
 
     submit = () => {
-        const {dispatch} = this.props;
+        const { dispatch } = this.props;
     }
 
     makeComprehensiveList = () => {
@@ -158,7 +175,7 @@ export default class Add extends React.Component<any, any> {
                         <RadioButton label="4 (+$200)" value={4} />
                     </RadioButtonGroup>
                 </div>
-                <div style={{marginTop: '20px'}}>
+                <div style={{ marginTop: '20px' }}>
                     <RaisedButton label="Save" onClick={this.submit} primary={true} />
                 </div>
             </div>

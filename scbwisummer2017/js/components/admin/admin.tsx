@@ -25,10 +25,12 @@ export default class Admin extends React.Component<any, any> {
                             <List>
                                 <Subheader>Tools</Subheader>
                                 <ListItem primaryText="Home" leftIcon={<Home />} containerElement={<Link to="/dashboard" />} />
-                                <ListItem primaryText="Download Spreadsheet" leftIcon={<FileFileDownload />} />
+                                <a href="/admin/getcsv">
+                                    <ListItem primaryText="Download Spreadsheet" leftIcon={<FileFileDownload />} />
+                                </a>
                                 <Divider />
                                 <Subheader>Registrations</Subheader>
-                                <ListItem primaryText="Add" containerElement={<Link to="/dashboard/add" />} />
+                                {/*<ListItem primaryText="Add" containerElement={<Link to="/dashboard/add" />} />*/}
                                 <ListItem primaryText="View" containerElement={<Link to="/dashboard/registrations" />} />
                                 <Divider />
                                 <Subheader>Settings</Subheader>

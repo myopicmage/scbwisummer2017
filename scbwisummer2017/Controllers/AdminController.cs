@@ -124,6 +124,22 @@ namespace scbwisummer2017.Controllers
             return Success(reg.ToList());
         } 
 
+        [Produces("text/csv")]
+        public IActionResult GetCsv() {
+            var reg = _db.Registrations
+                .Include(x => x.user)
+                .Include(x => x.coupon)
+                .Include(x => x.comprehensive)
+                .Include(x => x.workshop)
+                .OrderByDescending(x => x.created)
+                .Select(x => x.Flatten())
+                .ToList();
+
+            Response.Headers.Add("content-disposition", $"attachment; filename=registrations-{DateTime.Now:s}.csv");
+
+            return Ok(reg);
+        }
+
         public IActionResult Workshops() => Success(_db.Workshops.OrderBy(x => x.title).ToList());
 
         [HttpPost]
