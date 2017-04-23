@@ -38,6 +38,7 @@ render((
                 <Route path="/dashboard" component={Admin.Admin}>
                     <IndexRoute component={Admin.Dashboard} />
                     <Route path="/dashboard/registrations" component={Admin.RegistrationList} />
+                    <Route path="/dashboard/add" component={Admin.Add} />
                     <Route path="/dashboard/prices" component={Admin.Prices} />
                     <Route path="/dashboard/comprehensives" component={Admin.Comprehensives} />
                     <Route path="/dashboard/copy" component={Admin.Copy} />

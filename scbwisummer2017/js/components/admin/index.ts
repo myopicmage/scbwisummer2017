@@ -1,3 +1,4 @@
+import Add from './add';
 import Admin from './admin';
 import Comprehensives from './comprehensives';
 import Copy from './copy';
@@ -9,6 +10,7 @@ import RegistrationList from './registrationlist';
 import Workshops from './workshops';
 
 export {
+    Add,
     Admin,
     Comprehensives,
     Copy,

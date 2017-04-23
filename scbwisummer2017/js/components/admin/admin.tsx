@@ -27,7 +27,8 @@ export default class Admin extends React.Component<any, any> {
                                 <ListItem primaryText="Home" leftIcon={<Home />} containerElement={<Link to="/dashboard" />} />
                                 <ListItem primaryText="Download Spreadsheet" leftIcon={<FileFileDownload />} />
                                 <Divider />
-                                <Subheader>All Registrations</Subheader>
+                                <Subheader>Registrations</Subheader>
+                                <ListItem primaryText="Add" containerElement={<Link to="/dashboard/add" />} />
                                 <ListItem primaryText="View" containerElement={<Link to="/dashboard/registrations" />} />
                                 <Divider />
                                 <Subheader>Settings</Subheader>

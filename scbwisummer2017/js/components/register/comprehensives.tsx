@@ -18,8 +18,6 @@ export default class Comprehensives extends React.Component<any, any> {
 
     componentDidMount = () => {
         const {dispatch} = this.props;
-
-        //dispatch(seenBasic());
     }
 
     createMarkup = () => {
