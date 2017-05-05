@@ -329,7 +329,8 @@ export function addCoupon(coupon) {
         $.ajax({
             method: 'post',
             url: '/admin/coupons',
-            data: coupon
+            data: JSON.stringify(coupon),
+            contentType: 'application/json'
         })
         .done(response => {
             if (response.success) {
@@ -350,4 +351,24 @@ function couponsFetchingSuccess(coupons) {
         type: 'COUPONS_FETCHING_SUCCESS',
         coupons
     };
+}
+
+export function register(registration, user, success, failure) {
+    return dispatch => {
+        registration.user = user;
+
+        $.ajax({
+            method: 'post',
+            url: '/registration/register',
+            data: JSON.stringify(registration),
+            contentType: 'application/json'
+        })
+        .done(response => {
+            if (response.success) {
+                success();
+            } else {
+                failure();
+            }
+        });
+    }
 }

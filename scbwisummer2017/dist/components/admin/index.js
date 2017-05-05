@@ -1,10 +1,14 @@
 "use strict";
+var add_1 = require("./add");
+exports.Add = add_1.default;
 var admin_1 = require("./admin");
 exports.Admin = admin_1.default;
 var comprehensives_1 = require("./comprehensives");
 exports.Comprehensives = comprehensives_1.default;
 var copy_1 = require("./copy");
 exports.Copy = copy_1.default;
+var coupons_1 = require("./coupons");
+exports.Coupons = coupons_1.default;
 var critiques_1 = require("./critiques");
 exports.Critiques = critiques_1.default;
 var dashboard_1 = require("./dashboard");

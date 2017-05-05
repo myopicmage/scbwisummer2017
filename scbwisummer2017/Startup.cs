@@ -64,6 +64,7 @@ namespace scbwisummer2017
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<ITotalCalculator, TotalCalculator>();
 
             services.AddOptions();
 
@@ -104,10 +105,12 @@ namespace scbwisummer2017
 
             app.UseIdentity();
 
-            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "account",
+                    template: "Account/{action}/{id?}");
+
                 routes.MapRoute(
                     name: "admin",
                     template: "admin/{action}/{id?}");

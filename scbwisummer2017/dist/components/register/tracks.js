@@ -47,7 +47,7 @@ var Tracks = (function (_super) {
             React.createElement("div", null,
                 React.createElement(RadioButton_1.RadioButtonGroup, { name: "comprehensives", onChange: this.handleSelect }, this.makeList())),
             React.createElement("div", { style: { marginTop: '20px' } },
-                React.createElement(RaisedButton_1.default, { label: "Continue", onClick: this.continue, primary: true, containerElement: React.createElement(react_router_1.Link, { to: "/register/4" }) }))));
+                React.createElement(RaisedButton_1.default, { label: "Continue", onClick: this.continue, primary: true, containerElement: React.createElement(react_router_1.Link, { to: "/register/4" }), disabled: this.props.registration.track <= 0 }))));
     };
     return Tracks;
 }(React.Component));

@@ -22,7 +22,6 @@ var Comprehensives = (function (_super) {
         var _this = _super.call(this) || this;
         _this.componentDidMount = function () {
             var dispatch = _this.props.dispatch;
-            //dispatch(seenBasic());
         };
         _this.createMarkup = function () {
             return {

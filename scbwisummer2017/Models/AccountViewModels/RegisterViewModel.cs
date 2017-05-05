@@ -23,5 +23,8 @@ namespace scbwisummer2017.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string Secret { get; set; }
     }
 }

@@ -65,7 +65,7 @@ var Prices = (function (_super) {
                         React.createElement(Table_1.TableHeaderColumn, null, "Late Price"),
                         React.createElement(Table_1.TableHeaderColumn, null, "Member"),
                         React.createElement(Table_1.TableHeaderColumn, null, "Value"))),
-                React.createElement(Table_1.TableBody, null,
+                React.createElement(Table_1.TableBody, { stripedRows: true },
                     this.renderPricesList(),
                     React.createElement(Table_1.TableRow, null,
                         React.createElement(Table_1.TableRowColumn, null,

@@ -123,6 +123,7 @@ export default class Verify extends React.Component<any, any> {
 
     render() {
         const { user, registration } = this.props;
+        const container = <span id="paypal-button" data-merchant="braintree" data-id="paypal-button" data-button_type="submit" data-button_disabled="false" />
 
         return (
             <div className="pure-u-1">
@@ -194,14 +195,7 @@ export default class Verify extends React.Component<any, any> {
                     <div>
                         <h3>If you're sure, click here to submit:</h3>
                         <div className="pure-u-1 pure-u-md-1-4">
-                            <RaisedButton
-                                label="Submit to PayPal"
-                                primary={true}
-                                id="paypal-button"
-                                data-merchant="braintree"
-                                data-id="paypal-button"
-                                data-button_type="submit"
-                                data-button_disabled="false" />
+                            <RaisedButton label="Submit to PayPal" primary={true} containerElement={container} />
                         </div>
                     </div>
                 </div>

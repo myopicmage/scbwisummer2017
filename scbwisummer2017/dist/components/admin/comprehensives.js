@@ -64,7 +64,7 @@ var Comprehensives = (function (_super) {
                         React.createElement(Table_1.TableHeaderColumn, null, "Description"),
                         React.createElement(Table_1.TableHeaderColumn, null, "Max Attendees"),
                         React.createElement(Table_1.TableHeaderColumn, null, "Num Attendees"))),
-                React.createElement(Table_1.TableBody, null,
+                React.createElement(Table_1.TableBody, { stripedRows: true },
                     this.renderComprehensives(),
                     React.createElement(Table_1.TableRow, null,
                         React.createElement(Table_1.TableRowColumn, null,

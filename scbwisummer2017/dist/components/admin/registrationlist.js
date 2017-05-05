@@ -30,7 +30,7 @@ var RegistrationList = (function (_super) {
                         " ",
                         item.user.lastname),
                     React.createElement(Table_1.TableRowColumn, null, item.comprehensive ? item.comprehensive.title : "None"),
-                    React.createElement(Table_1.TableRowColumn, null, item.workshop.title),
+                    React.createElement(Table_1.TableRowColumn, null, item.workshop ? item.workshop.title : "None"),
                     React.createElement(Table_1.TableRowColumn, null, item.manuscript),
                     React.createElement(Table_1.TableRowColumn, null, item.portfolio),
                     React.createElement(Table_1.TableRowColumn, null, item.coupon ? item.coupon.text : "None"),
@@ -56,7 +56,7 @@ var RegistrationList = (function (_super) {
                         React.createElement(Table_1.TableHeaderColumn, null, "Subtotal"),
                         React.createElement(Table_1.TableHeaderColumn, null, "Total"),
                         React.createElement(Table_1.TableHeaderColumn, null, "Submitted"))),
-                React.createElement(Table_1.TableBody, null, this.renderRegistrations()))));
+                React.createElement(Table_1.TableBody, { stripedRows: true }, this.renderRegistrations()))));
     };
     return RegistrationList;
 }(React.Component));

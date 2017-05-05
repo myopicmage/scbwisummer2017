@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import { fetchComprehensives, fetchWorkshops } from '../../redux/actions/admin';
+import { fetchComprehensives, fetchWorkshops, register } from '../../redux/actions/admin';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
 @connect(state => ({ admin: state.admin, regData: state.regData }))
@@ -80,6 +80,14 @@ export default class Add extends React.Component<any, any> {
 
     submit = () => {
         const { dispatch } = this.props;
+
+        dispatch(register(this.state.registration, this.state.user, () => {
+            this.props.router.push({
+                pathname: '/dashboard'
+            });
+        }, () => {
+            console.log('oh dear')
+        }));
     }
 
     makeComprehensiveList = () => {

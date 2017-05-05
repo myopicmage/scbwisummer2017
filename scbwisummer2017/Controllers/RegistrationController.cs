@@ -18,13 +18,15 @@ namespace scbwisummer2017.Controllers
         private readonly BraintreeGateway _gateway;
         private readonly ILogger _logger;
         private readonly IEmailSender _email;
+        private readonly ITotalCalculator _calc;
 
-        public RegistrationController(ApplicationDbContext db, ILoggerFactory factory, IOptions<Secrets> secrets, IEmailSender esvc)
+        public RegistrationController(ApplicationDbContext db, ILoggerFactory factory, IOptions<Secrets> secrets, IEmailSender esvc, ITotalCalculator calc)
         {
             _db = db;
             _logger = factory.CreateLogger("All");
             _gateway = new BraintreeGateway(secrets.Value.paypaltoken);
             _email = esvc;
+            _calc = calc;
         }
 
         [HttpPost]
@@ -90,7 +92,7 @@ namespace scbwisummer2017.Controllers
                 return Failure("Whoops");
             }
 
-            (var subtotal, var total) = CalcTotals(r);
+            (var subtotal, var total) = _calc.CalcTotals(r, _db);
 
             return Success(new { subtotal = subtotal, total = total });
         }
@@ -108,7 +110,7 @@ namespace scbwisummer2017.Controllers
                 manuscript = r.manuscriptcritiques
             };
 
-            (var subtotal, var total) = CalcTotals(r);
+            (var subtotal, var total) = _calc.CalcTotals(r, _db);
 
             reg.subtotal = subtotal;
             reg.total = total;
@@ -148,53 +150,6 @@ namespace scbwisummer2017.Controllers
             }
 
             return Failure("dunno!");
-        }
-
-        private (decimal subtotal, decimal total) CalcTotals(RegistrationViewModel r)
-        {
-            var subtotal = 0m;
-            var total = 0.0m;
-            var late = _db.Dates.SingleOrDefault(x => x.name == "late");
-
-            subtotal += 50 * r.portfoliocritiques;
-            subtotal += 50 * r.manuscriptcritiques;
-
-            if (r.track > 0) {
-                var w_price = _db.Prices.SingleOrDefault(x => x.member == r.user.member && x.late == (DateTime.Now > late.value) && x.type == "workshop");
-
-                subtotal += w_price.value;
-            }
-
-            if (r.comprehensive > 0)
-            {
-                var c_price = _db.Prices.SingleOrDefault(x => x.late == (DateTime.Now > late.value) && x.type == "comprehensive");
-
-                subtotal += c_price.value;
-            }
-
-            total = subtotal;
-
-            if (!string.IsNullOrEmpty(r.coupon))
-            {
-                var coupon = _db.Coupons.SingleOrDefault(x => x.text == r.coupon);
-
-                if (coupon != null)
-                {
-                    switch (coupon.type)
-                    {
-                        case CouponType.TotalCost:
-                            total = Convert.ToDecimal(coupon.value);
-                            break;
-                        case CouponType.PercentOff:
-                            var val = Convert.ToDecimal(coupon.value);
-                            var mult = 100 - (val / 100);
-                            total *= mult;
-                            break;
-                    }
-                }
-            }
-
-            return (subtotal, total);
         }
     }
 }

@@ -28,7 +28,7 @@ var App = (function (_super) {
     };
     App.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(AppBar_1.default, { title: "SCBWI Summer 2017", iconClassNameRight: "muidocs-icon-navigation-expand-more" }),
+            React.createElement(AppBar_1.default, { title: "SCBWI" }),
             React.createElement("div", { className: "main" },
                 React.createElement("div", { className: "pure-g" }, this.props.children))));
     };

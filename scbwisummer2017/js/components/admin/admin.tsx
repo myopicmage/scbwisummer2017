@@ -8,11 +8,20 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import Home from 'material-ui/svg-icons/action/home';
+import * as $ from 'jquery';
 
 @connect(state => ({ admin: state.admin }))
 export default class Admin extends React.Component<any, any> {
     constructor() {
         super();
+    }
+
+    componentWillUpdate = () => {
+        let loggedin = $('#isloggedin');
+
+        if (loggedin.val() !== "True") {
+            window.location.href = '/account/login';
+        }
     }
 
     render() {
@@ -25,17 +34,18 @@ export default class Admin extends React.Component<any, any> {
                             <List>
                                 <Subheader>Tools</Subheader>
                                 <ListItem primaryText="Home" leftIcon={<Home />} containerElement={<Link to="/dashboard" />} />
-                                <a href="/admin/getcsv">
+                                <a href="/admin/getcsv" style={{ textDecoration: 'none' }}>
                                     <ListItem primaryText="Download Spreadsheet" leftIcon={<FileFileDownload />} />
                                 </a>
                                 <Divider />
                                 <Subheader>Registrations</Subheader>
-                                {/*<ListItem primaryText="Add" containerElement={<Link to="/dashboard/add" />} />*/}
+                                <ListItem primaryText="Add" containerElement={<Link to="/dashboard/add" />} />
                                 <ListItem primaryText="View" containerElement={<Link to="/dashboard/registrations" />} />
                                 <Divider />
                                 <Subheader>Settings</Subheader>
                                 <ListItem primaryText="Comprehensives" containerElement={<Link to="/dashboard/comprehensives" />} />
                                 <ListItem primaryText="Copy" containerElement={<Link to="/dashboard/copy" />} />
+                                <ListItem primaryText="Coupons" containerElement={<Link to="/dashboard/coupons" />} />
                                 <ListItem primaryText="Critiques" containerElement={<Link to="/dashboard/critiques" />} />
                                 <ListItem primaryText="Prices" containerElement={<Link to="/dashboard/prices" />} />
                                 <ListItem primaryText="Workshops" containerElement={<Link to="/dashboard/workshops" />} />

@@ -32,7 +32,7 @@ var MemberSelect = (function (_super) {
         return (React.createElement("div", { className: "pure-u-1" },
             React.createElement("div", { className: "pure-u-1" },
                 React.createElement("h2", null, "Are you a member?")),
-            React.createElement("div", { className: "pure-u-1-4" },
+            React.createElement("div", { className: "pure-u-1 pure-u-md-1-4" },
                 React.createElement(RaisedButton_1.default, { label: "Yes", primary: true, style: { marginRight: 12 }, onTouchTap: function () { return _this.handleMemberSet(true); }, containerElement: React.createElement(react_router_1.Link, { to: '/register/1' }) }),
                 React.createElement(RaisedButton_1.default, { label: "No", secondary: true, style: { marginLeft: 12 }, onTouchTap: function () { return _this.handleMemberSet(false); }, containerElement: React.createElement(react_router_1.Link, { to: '/register/1' }) }))));
     };

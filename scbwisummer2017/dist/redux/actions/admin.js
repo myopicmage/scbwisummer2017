@@ -304,7 +304,8 @@ function addCoupon(coupon) {
         $.ajax({
             method: 'post',
             url: '/admin/coupons',
-            data: coupon
+            data: JSON.stringify(coupon),
+            contentType: 'application/json'
         })
             .done(function (response) {
             if (response.success) {

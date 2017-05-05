@@ -21,7 +21,7 @@ export default class Dashboard extends React.Component<any, any> {
                 <TableRow key={item.id}>
                     <TableRowColumn>{item.user.firstname} {item.user.lastname}</TableRowColumn>
                     <TableRowColumn>{item.comprehensive ? item.comprehensive.title : "None"}</TableRowColumn>
-                    <TableRowColumn>{item.workshop.title}</TableRowColumn>
+                    <TableRowColumn>{item.workshop ? item.workshop.title : "None"}</TableRowColumn>
                     <TableRowColumn>{item.manuscript}</TableRowColumn>
                     <TableRowColumn>{item.portfolio}</TableRowColumn>
                     <TableRowColumn>{item.coupon ? item.coupon.text : "None"}</TableRowColumn>

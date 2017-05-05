@@ -19,6 +19,7 @@ var Register = (function (_super) {
     __extends(Register, _super);
     function Register() {
         var _this = _super.call(this) || this;
+        _this.width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         _this.componentWillMount = function () {
             var page = _this.props.params.page || '0';
             var _a = _this.props.registration, seenbasic = _a.seenbasic, seenmember = _a.seenmember, seentracks = _a.seentracks, seencritiques = _a.seencritiques;
@@ -37,8 +38,10 @@ var Register = (function (_super) {
     }
     Register.prototype.render = function () {
         return (React.createElement("div", { className: "pure-u-1" },
+            React.createElement(Paper_1.default, { zDepth: 3, style: { padding: '20px' } }, this.props.children),
+            React.createElement("br", null),
             React.createElement(Paper_1.default, { zDepth: 3 },
-                React.createElement(Stepper_1.Stepper, { linear: false, activeStep: Number(this.props.params.page) },
+                React.createElement(Stepper_1.Stepper, { linear: false, activeStep: Number(this.props.params.page), orientation: this.width < 769 ? "vertical" : "horizontal" },
                     React.createElement(Stepper_1.Step, null,
                         React.createElement(Stepper_1.StepButton, { containerElement: React.createElement(react_router_1.Link, { to: "/register" }) }, "Member")),
                     React.createElement(Stepper_1.Step, { disabled: !this.props.registration.seenmember },
@@ -52,9 +55,7 @@ var Register = (function (_super) {
                     React.createElement(Stepper_1.Step, { disabled: this.allowVerify() },
                         React.createElement(Stepper_1.StepButton, { containerElement: React.createElement(react_router_1.Link, { to: "/register/5" }) }, "Verify")),
                     React.createElement(Stepper_1.Step, { disabled: true },
-                        React.createElement(Stepper_1.StepLabel, null, "Complete")))),
-            React.createElement("br", null),
-            React.createElement(Paper_1.default, { zDepth: 3, style: { padding: '20px' } }, this.props.children)));
+                        React.createElement(Stepper_1.StepLabel, null, "Complete"))))));
     };
     return Register;
 }(React.Component));

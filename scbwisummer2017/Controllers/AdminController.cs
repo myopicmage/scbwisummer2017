@@ -11,24 +11,30 @@ using System.Linq;
 using scbwisummer2017.Models.Data;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using scbwisummer2017.Models.RegistrationViewModels;
 
 namespace scbwisummer2017.Controllers
 {
+    [Authorize]
     public class AdminController : ScbwiController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger _logger;
         private readonly IEmailSender _msgSender;
+        private readonly ITotalCalculator _calc;
 
-        public AdminController(ApplicationDbContext db, UserManager<ApplicationUser> um, RoleManager<IdentityRole> rm, ILoggerFactory f, IEmailSender esvc)
+        public AdminController(ApplicationDbContext db, UserManager<ApplicationUser> um, RoleManager<IdentityRole> rm, ILoggerFactory f, IEmailSender esvc, ITotalCalculator calc)
         {
             _db = db;
             _userManager = um;
             _roleManager = rm;
             _logger = f.CreateLogger("All");
             _msgSender = esvc;
+            _calc = calc;
         }
+
+        public IActionResult Index() => View();
 
         public IActionResult Comprehensives() => Success(_db.Comprehensives.OrderBy(x => x.title).ToList());
 
@@ -109,7 +115,8 @@ namespace scbwisummer2017.Controllers
             return await Save();
         }
 
-        public IActionResult Registrations(int number) {
+        public IActionResult Registrations(int number)
+        {
             var reg = _db.Registrations
                 .Include(x => x.user)
                 .Include(x => x.coupon)
@@ -117,15 +124,17 @@ namespace scbwisummer2017.Controllers
                 .Include(x => x.workshop)
                 .OrderByDescending(x => x.created);
 
-            if (number > 0) {
+            if (number > 0)
+            {
                 return Success(reg.Take(number).ToList());
             }
 
             return Success(reg.ToList());
-        } 
+        }
 
         [Produces("text/csv")]
-        public IActionResult GetCsv() {
+        public IActionResult GetCsv()
+        {
             var reg = _db.Registrations
                 .Include(x => x.user)
                 .Include(x => x.coupon)
@@ -160,15 +169,46 @@ namespace scbwisummer2017.Controllers
             return await Save();
         }
 
-        public IActionResult Copy() {
+        public IActionResult Copy()
+        {
             var copy = _db.Copy.ToList();
 
-            return Success(new {
+            return Success(new
+            {
                 frontpage = copy.SingleOrDefault(x => x.page == "frontpage")?.text,
                 workshop = copy.SingleOrDefault(x => x.page == "workshop")?.text,
                 comprehensive = copy.SingleOrDefault(x => x.page == "comprehensive")?.text,
                 critique = copy.SingleOrDefault(x => x.page == "critique")?.text,
             });
+        }
+
+        [HttpPost]
+        public IActionResult Register([FromBody] RegistrationViewModel r)
+        {
+            var reg = new Registration(r)
+            {
+                ismember = r.user.member,
+                comprehensive = _db.Comprehensives.SingleOrDefault(x => x.id == r.comprehensive),
+                coupon = _db.Coupons.SingleOrDefault(x => x.text == r.coupon),
+                workshop = _db.Workshops.SingleOrDefault(x => x.id == r.track),
+                portfolio = r.portfoliocritiques,
+                manuscript = r.manuscriptcritiques
+            };
+
+            (var subtotal, var total) = _calc.CalcTotals(r, _db);
+
+            reg.subtotal = subtotal;
+            reg.total = 0m;
+            reg.paid = DateTime.Now;
+            reg.submitted = DateTime.Now;
+            reg.created = DateTime.Now;
+            reg.modified = DateTime.Now;
+
+            _db.Registrations.Add(reg);
+
+            _db.SaveChanges();
+
+            return Success();
         }
     }
 }

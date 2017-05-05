@@ -28,10 +28,12 @@ react_dom_1.render((React.createElement(react_redux_1.Provider, { store: store_1
             React.createElement(react_router_1.Route, { path: "/dashboard", component: Admin.Admin },
                 React.createElement(react_router_1.IndexRoute, { component: Admin.Dashboard }),
                 React.createElement(react_router_1.Route, { path: "/dashboard/registrations", component: Admin.RegistrationList }),
+                React.createElement(react_router_1.Route, { path: "/dashboard/add", component: Admin.Add }),
                 React.createElement(react_router_1.Route, { path: "/dashboard/prices", component: Admin.Prices }),
                 React.createElement(react_router_1.Route, { path: "/dashboard/comprehensives", component: Admin.Comprehensives }),
                 React.createElement(react_router_1.Route, { path: "/dashboard/copy", component: Admin.Copy }),
                 React.createElement(react_router_1.Route, { path: "/dashboard/critiques", component: Admin.Critiques }),
-                React.createElement(react_router_1.Route, { path: "/dashboard/workshops", component: Admin.Workshops })),
+                React.createElement(react_router_1.Route, { path: "/dashboard/workshops", component: Admin.Workshops }),
+                React.createElement(react_router_1.Route, { path: "/dashboard/coupons", component: Admin.Coupons })),
             React.createElement(react_router_1.Route, { path: "*", component: error404_1.default }))))), document.getElementById("app"));
 //# sourceMappingURL=index.js.map

@@ -20,10 +20,18 @@ var Subheader_1 = require("material-ui/Subheader");
 var Divider_1 = require("material-ui/Divider");
 var file_download_1 = require("material-ui/svg-icons/file/file-download");
 var home_1 = require("material-ui/svg-icons/action/home");
+var $ = require("jquery");
 var Admin = (function (_super) {
     __extends(Admin, _super);
     function Admin() {
-        return _super.call(this) || this;
+        var _this = _super.call(this) || this;
+        _this.componentWillUpdate = function () {
+            var loggedin = $('#isloggedin');
+            if (loggedin.val() !== "True") {
+                window.location.href = '/account/login';
+            }
+        };
+        return _this;
     }
     Admin.prototype.render = function () {
         return (React.createElement("div", null,
@@ -34,14 +42,17 @@ var Admin = (function (_super) {
                         React.createElement(List_1.List, null,
                             React.createElement(Subheader_1.default, null, "Tools"),
                             React.createElement(List_1.ListItem, { primaryText: "Home", leftIcon: React.createElement(home_1.default, null), containerElement: React.createElement(react_router_1.Link, { to: "/dashboard" }) }),
-                            React.createElement(List_1.ListItem, { primaryText: "Download Spreadsheet", leftIcon: React.createElement(file_download_1.default, null) }),
+                            React.createElement("a", { href: "/admin/getcsv", style: { textDecoration: 'none' } },
+                                React.createElement(List_1.ListItem, { primaryText: "Download Spreadsheet", leftIcon: React.createElement(file_download_1.default, null) })),
                             React.createElement(Divider_1.default, null),
-                            React.createElement(Subheader_1.default, null, "All Registrations"),
+                            React.createElement(Subheader_1.default, null, "Registrations"),
+                            React.createElement(List_1.ListItem, { primaryText: "Add", containerElement: React.createElement(react_router_1.Link, { to: "/dashboard/add" }) }),
                             React.createElement(List_1.ListItem, { primaryText: "View", containerElement: React.createElement(react_router_1.Link, { to: "/dashboard/registrations" }) }),
                             React.createElement(Divider_1.default, null),
                             React.createElement(Subheader_1.default, null, "Settings"),
                             React.createElement(List_1.ListItem, { primaryText: "Comprehensives", containerElement: React.createElement(react_router_1.Link, { to: "/dashboard/comprehensives" }) }),
                             React.createElement(List_1.ListItem, { primaryText: "Copy", containerElement: React.createElement(react_router_1.Link, { to: "/dashboard/copy" }) }),
+                            React.createElement(List_1.ListItem, { primaryText: "Coupons", containerElement: React.createElement(react_router_1.Link, { to: "/dashboard/coupons" }) }),
                             React.createElement(List_1.ListItem, { primaryText: "Critiques", containerElement: React.createElement(react_router_1.Link, { to: "/dashboard/critiques" }) }),
                             React.createElement(List_1.ListItem, { primaryText: "Prices", containerElement: React.createElement(react_router_1.Link, { to: "/dashboard/prices" }) }),
                             React.createElement(List_1.ListItem, { primaryText: "Workshops", containerElement: React.createElement(react_router_1.Link, { to: "/dashboard/workshops" }) })))),

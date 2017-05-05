@@ -26,13 +26,14 @@ var RaisedButton_1 = require("material-ui/RaisedButton");
 var braintree = require("braintree-web");
 var regData_1 = require("../../redux/actions/regData");
 var registration_1 = require("../../redux/actions/registration");
+var Dialog_1 = require("material-ui/Dialog");
 var Verify = (function (_super) {
     __extends(Verify, _super);
     function Verify() {
         var _this = _super.call(this) || this;
         _this.componentWillMount = function () {
             var dispatch = _this.props.dispatch;
-            dispatch(regData_1.fetchToken());
+            dispatch(regData_1.fetchToken(_this.setupButton));
             dispatch(registration_1.calculateTotal(_this.props.registration, _this.props.user));
         };
         _this.getComprehensive = function () {
@@ -72,23 +73,24 @@ var Verify = (function (_super) {
         _this.setupButton = function () {
             var ppbutton = document.getElementById('paypal-button');
             var _a = _this.props, registration = _a.registration, dispatch = _a.dispatch, router = _a.router, user = _a.user;
-            if (registration.total == 0) {
-                dispatch(registration_1.registerFree(registration, user, function () {
-                    router.push({
-                        pathname: '/register/6'
-                    });
-                }));
-                return;
-            }
             braintree.client.create({ authorization: _this.props.regData.paypaltoken }, function (clientErr, clientInstance) {
                 braintree.paypal.create({ client: clientInstance }, function (err, paypalInstance) {
                     ppbutton.addEventListener('click', function () {
+                        if (registration.total == 0) {
+                            dispatch(registration_1.registerFree(registration, user, function () {
+                                router.push({
+                                    pathname: '/register/6'
+                                });
+                            }));
+                        }
+                        _this.setState({ open: true });
                         paypalInstance.tokenize({
                             flow: 'checkout',
                             amount: registration.total,
                             currency: 'USD',
                             locale: 'en_US',
                         }, function (err, tokenizationPayload) {
+                            _this.setState({ modalText: "PayPal response received. Processing..." });
                             dispatch(registration_1.setNonce(tokenizationPayload.nonce));
                             dispatch(registration_1.register(__assign({}, registration, { nonce: tokenizationPayload.nonce }), user, function () {
                                 router.push({
@@ -99,23 +101,25 @@ var Verify = (function (_super) {
                             }));
                         });
                     });
-                    _this.setState({ ready: true });
                 });
             });
         };
         _this.state = {
-            ready: false
+            open: false,
+            modalText: "Please look for a paypal window if you don't see one. If you're on a phone, it may be in another tab."
         };
         return _this;
     }
     Verify.prototype.render = function () {
         var _a = this.props, user = _a.user, registration = _a.registration;
+        var container = React.createElement("span", { id: "paypal-button", "data-merchant": "braintree", "data-id": "paypal-button", "data-button_type": "submit", "data-button_disabled": "false" });
         return (React.createElement("div", { className: "pure-u-1" },
             React.createElement("h1", null, "Verify your choices"),
-            React.createElement("div", { className: "pure-u-1-2" },
+            React.createElement("p", null, "If you'd like to make any changes, please click the step below."),
+            React.createElement("div", { className: "pure-u-1 pure-u-md-1-2" },
                 React.createElement("div", null,
-                    React.createElement(Table_1.Table, null,
-                        React.createElement(Table_1.TableBody, null,
+                    React.createElement(Table_1.Table, { selectable: false },
+                        React.createElement(Table_1.TableBody, { displayRowCheckbox: false },
                             React.createElement(Table_1.TableRow, null,
                                 React.createElement(Table_1.TableRowColumn, null, "Name"),
                                 React.createElement(Table_1.TableRowColumn, null,
@@ -155,20 +159,25 @@ var Verify = (function (_super) {
                                 React.createElement(Table_1.TableRowColumn, null, "Subtotal"),
                                 React.createElement(Table_1.TableRowColumn, null,
                                     "$",
-                                    registration.subtotal))))),
-                React.createElement("div", null,
-                    React.createElement("h3", null, "Do you have a coupon?"),
-                    React.createElement(TextField_1.default, { name: "coupon", hintText: "Enter it here", value: this.props.registration.coupon, onChange: this.handleCoupon }),
-                    React.createElement(RaisedButton_1.default, { label: "Submit", secondary: true, onClick: this.submitCoupon })),
+                                    registration.subtotal)),
+                            React.createElement(Table_1.TableRow, null,
+                                React.createElement(Table_1.TableRowColumn, null,
+                                    React.createElement("b", null, "Do you have a coupon?")),
+                                React.createElement(Table_1.TableRowColumn, null,
+                                    React.createElement("div", { className: "pure-u-2-3" },
+                                        React.createElement(TextField_1.default, { name: "coupon", hintText: "Enter it here", value: this.props.registration.coupon, onChange: this.handleCoupon, fullWidth: true })),
+                                    React.createElement("div", { className: "pure-u-1-3" },
+                                        React.createElement(RaisedButton_1.default, { label: "Verify", secondary: true, onClick: this.submitCoupon, style: { float: 'right' } }))))))),
                 React.createElement("div", null,
                     React.createElement("h3", null, "Total"),
                     React.createElement("div", null,
                         "$",
                         registration.total)),
                 React.createElement("div", null,
-                    React.createElement("h3", null, "If you're sure, click here to go to paypal:"),
-                    React.createElement(RaisedButton_1.default, { label: "I'm ready", onClick: this.setupButton, primary: true, style: { display: "" + (this.state.ready ? 'none' : 'block') } }),
-                    React.createElement("button", { id: "paypal-button", "data-merchant": "braintree", "data-id": "paypal-button", "data-button": "checkout", "data-color": "blue", "data-size": "medium", "data-shape": "pill", "data-button_type": "submit", "data-button_disabled": "false", style: { display: "" + (this.state.ready ? 'block' : 'none') } }, "Go")))));
+                    React.createElement("h3", null, "If you're sure, click here to submit:"),
+                    React.createElement("div", { className: "pure-u-1 pure-u-md-1-4" },
+                        React.createElement(RaisedButton_1.default, { label: "Submit to PayPal", primary: true, containerElement: container })))),
+            React.createElement(Dialog_1.default, { open: this.state.open, title: this.state.modalText, modal: true, actions: [] })));
     };
     return Verify;
 }(React.Component));
