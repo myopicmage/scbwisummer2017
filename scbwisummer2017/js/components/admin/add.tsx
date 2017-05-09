@@ -43,6 +43,9 @@ export default class Add extends React.Component<any, any> {
     }
 
     handleUserChange = (event, value) => {
+        console.log('event', event.target.name);
+        console.log('value', value);
+
         this.setState({
             user: {
                 ...this.state.user,
@@ -137,7 +140,7 @@ export default class Add extends React.Component<any, any> {
                             <TextField hintText="Zip/Postal" onChange={this.handleUserChange} name="postal" value={this.state.user.postal} />
                         </div>
                         <br />
-                        <SelectField floatingLabelText="Country" onChange={this.handleUserSelect} value={this.state.user.country}>
+                        <SelectField floatingLabelText="Country" onChange={this.handleUserChange} value={this.state.user.country}>
                             <MenuItem value="US" primaryText="US" />
                             <MenuItem value="Canada" primaryText="Canada" />
                         </SelectField>
@@ -150,9 +153,9 @@ export default class Add extends React.Component<any, any> {
                     <br />
                     <TextField hintText="Email" onChange={this.handleUserChange} name="email" value={this.state.user.email} />
                     <br />
-                    <RadioButtonGroup name="member" onChange={this.handleUserSelect} defaultSelected={true} value={this.state.user.member}>
-                        <RadioButton value={true} label="Member" key={0} />
-                        <RadioButton value={false} label="Non Member" key={1} />
+                    <RadioButtonGroup name="member" onChange={this.handleUserChange}>
+                        <RadioButton value={true} label="Member" />
+                        <RadioButton value={false} label="Non Member" />
                     </RadioButtonGroup>
                 </div>
                 <div>
