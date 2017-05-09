@@ -198,7 +198,7 @@ namespace scbwisummer2017.Controllers
             (var subtotal, var total) = _calc.CalcTotals(r, _db);
 
             reg.subtotal = subtotal;
-            reg.total = 0m;
+            reg.total = total;
             reg.paid = DateTime.Now;
             reg.submitted = DateTime.Now;
             reg.created = DateTime.Now;
