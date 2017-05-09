@@ -134,7 +134,7 @@ export default class Add extends React.Component<any, any> {
                             <TextField hintText="State/Province" onChange={this.handleUserChange} name="province" value={this.state.user.province} />
                         </div>
                         <div className="pure-u-1 pure-u-md-1-3">
-                            <TextField hintText="Zip/Postal" onChange={this.handleUserChange} name="postalcode" value={this.state.user.postal} />
+                            <TextField hintText="Zip/Postal" onChange={this.handleUserChange} name="postal" value={this.state.user.postal} />
                         </div>
                         <br />
                         <SelectField floatingLabelText="Country" onChange={this.handleUserSelect} value={this.state.user.country}>

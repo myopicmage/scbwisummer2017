@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +10,7 @@ using scbwisummer2017.Models;
 using scbwisummer2017.Services;
 using WebApiContrib.Core.Formatter.Csv;
 using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace scbwisummer2017
 {
@@ -94,7 +91,12 @@ namespace scbwisummer2017
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
+
+                app.UseWebpackDevMiddleware(/*new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true,
+                    ReactHotModuleReplacement = true
+                }*/);
             }
             else
             {

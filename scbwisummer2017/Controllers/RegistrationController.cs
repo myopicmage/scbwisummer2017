@@ -151,5 +151,39 @@ namespace scbwisummer2017.Controllers
 
             return Failure("dunno!");
         }
+
+        [HttpPost]
+        public IActionResult RegisterDirect([FromBody] RegistrationViewModel r)
+        {
+            var reg = new Registration(r)
+            {
+                ismember = r.user.member,
+                comprehensive = _db.Comprehensives.SingleOrDefault(x => x.id == r.comprehensive),
+                coupon = _db.Coupons.SingleOrDefault(x => x.text == r.coupon),
+                workshop = _db.Workshops.SingleOrDefault(x => x.id == r.track),
+                portfolio = r.portfoliocritiques,
+                manuscript = r.manuscriptcritiques
+            };
+
+            (var subtotal, var total) = _calc.CalcTotals(r, _db);
+
+            reg.subtotal = subtotal;
+            reg.total = 0m;
+            reg.paid = DateTime.Now;
+            reg.submitted = DateTime.Now;
+            reg.created = DateTime.Now;
+            reg.modified = DateTime.Now;
+
+            _db.Registrations.Add(reg);
+
+            _db.SaveChanges();
+
+            return Success();
+        }
+
+        public IActionResult Email(RegistrationViewModel r)
+        {
+            return View();
+        }
     }
 }

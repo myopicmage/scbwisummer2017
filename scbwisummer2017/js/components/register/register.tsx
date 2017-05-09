@@ -24,9 +24,9 @@ export default class Register extends React.Component<any, any> {
         const {seenbasic, seenmember, seentracks, seencritiques} = this.props.registration;
 
         if (!seenmember || !seenbasic || !seentracks || !seencritiques) {
-            this.props.router.push({
+            /*this.props.router.push({
                 pathname: '/register'
-            });
+            });*/
         }
     }
 

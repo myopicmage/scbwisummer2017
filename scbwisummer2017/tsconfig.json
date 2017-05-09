@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "baseUrl": ".",
     "sourceMap": true,
     "noImplicitAny": false,
-    "module": "commonjs",
     "target": "es5",
     "jsx": "react",
+    "moduleResolution": "node",
     "allowJs": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "lib": [ "es6", "dom" ],
+    "types": [ "webpack-env" ],
+    "skipDefaultLibCheck": true
   },
   "include": [
-    "./js/**/*"
+    "js"
   ]
 }

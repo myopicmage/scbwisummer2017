@@ -80,6 +80,8 @@ export function addRegistration(registration) {
             data: registration
         })
         .done(response => {
+            console.log('response', response);
+
             if (response.success) {
                 dispatch(fetchRegistrations());
             }
@@ -359,7 +361,7 @@ export function register(registration, user, success, failure) {
 
         $.ajax({
             method: 'post',
-            url: '/registration/register',
+            url: '/admin/register',
             data: JSON.stringify(registration),
             contentType: 'application/json'
         })

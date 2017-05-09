@@ -77,6 +77,16 @@ export default class Verify extends React.Component<any, any> {
         dispatch(setCoupon(value));
     }
 
+    free = () => {
+        const { dispatch, router } = this.props;
+
+        dispatch(registerFree(this.props.registration, this.props.user, () => {
+            router.push({
+                pathname: '/register/6'
+            });
+        }));
+    }
+
     setupButton = () => {
         const ppbutton = document.getElementById('paypal-button');
 
@@ -195,7 +205,11 @@ export default class Verify extends React.Component<any, any> {
                     <div>
                         <h3>If you're sure, click here to submit:</h3>
                         <div className="pure-u-1 pure-u-md-1-4">
-                            <RaisedButton label="Submit to PayPal" primary={true} containerElement={container} />
+                            {registration.total > 0 ?
+                                <RaisedButton label="Submit to PayPal" primary={true} containerElement={container} />
+                                :
+                                <RaisedButton label="Register Free" secondary={true} onClick={this.free} />
+                            }
                         </div>
                     </div>
                 </div>

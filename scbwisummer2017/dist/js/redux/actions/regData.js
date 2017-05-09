@@ -1,1 +1,0 @@
-//# sourceMappingURL=regData.js.map

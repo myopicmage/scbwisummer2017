@@ -86,7 +86,7 @@ export function registerFree(registration, user, success) {
 
         $.ajax({
             method: 'post',
-            url: '/registration/register',
+            url: '/registration/registerdirect',
             data: JSON.stringify(registration),
             contentType: 'application/json'
         })

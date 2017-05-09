@@ -2,11 +2,12 @@
 import { registration } from "./registration";
 import { regData } from "./regData";
 import { admin } from './admin';
-import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 
-export const reducers = combineReducers({
+export const reducers = {
     user,
     registration,
     regData,
-    admin
-});
+    admin,
+    routing: routerReducer
+};

@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { Link } from "react-router";
 
-@connect(state => ({regData: state.regData}))
+@connect(state => ({ regData: state.regData }))
 export default class Home extends React.Component<any, any> {
     constructor() {
         super();

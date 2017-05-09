@@ -95,7 +95,7 @@ export default class Coupons extends React.Component<any, any> {
                         <TableRow>
                             <TableRowColumn>
                                 <SelectField onChange={this.handleSelect} value={this.state.coupon.type} floatingLabelText="Coupon Type">
-                                    {/*<MenuItem value={2} primaryText="Total Cost" />*/}
+                                    <MenuItem value={2} primaryText="Total Cost" />
                                     <MenuItem value={0} primaryText="Percent Off" />
                                 </SelectField>
                             </TableRowColumn>
