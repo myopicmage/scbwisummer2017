@@ -70,7 +70,7 @@ namespace scbwisummer2017.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return Redirect("~/dashboard");
                 }
                 if (result.IsLockedOut)
                 {

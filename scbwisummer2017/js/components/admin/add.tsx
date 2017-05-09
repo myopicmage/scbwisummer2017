@@ -149,6 +149,11 @@ export default class Add extends React.Component<any, any> {
                     <TextField hintText="Phone" onChange={this.handleUserChange} name="phone" value={this.state.user.phone} />
                     <br />
                     <TextField hintText="Email" onChange={this.handleUserChange} name="email" value={this.state.user.email} />
+                    <br />
+                    <RadioButtonGroup name="member" onChange={this.handleUserSelect} defaultSelected={true} value={this.state.user.member}>
+                        <RadioButton value={true} label="Member" key={0} />
+                        <RadioButton value={false} label="Non Member" key={1} />
+                    </RadioButtonGroup>
                 </div>
                 <div>
                     <h4>Comprehensive</h4>
