@@ -98,7 +98,7 @@ namespace scbwisummer2017.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register([FromBody] RegistrationViewModel r)
+        public async Task<IActionResult> Register([FromBody] RegistrationViewModel r)
         {
             var reg = new Registration(r)
             {
@@ -144,7 +144,19 @@ namespace scbwisummer2017.Controllers
 
                 _db.SaveChanges();
 
-                //TODO: EMAIL
+                try
+                {
+                    var emailResp = await _email.SendEmailAsync(reg.user.Email, "Successful Registration", reg.GenEmail(), $"{reg.user.firstname} {reg.user.lastname}");
+
+                    if (!emailResp.IsSuccessStatusCode)
+                    {
+                        _logger.LogWarning($"Failed to send confirmation email to {reg.user.Email}. Reason: {emailResp.ReasonPhrase}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning($"Failed to send confirmation email. Exception: {ex.Message}");
+                }
 
                 return Success();
             }

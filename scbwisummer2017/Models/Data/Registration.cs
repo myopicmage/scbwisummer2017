@@ -40,30 +40,94 @@ namespace scbwisummer2017.Models.Data
             user.UserName = r.user.email;
         }
 
-        public FlatRegistration Flatten() => new FlatRegistration {
-            firstname = this.user.firstname,
-            lastname = this.user.lastname,
-            address1 = this.user.address1,
-            address2 = this.user.address2,
-            city = this.user.city,
-            state = this.user.state,
-            postalcode = this.user.postalcode,
-            phone = this.user.phone,
-            Email = this.user.Email,
-            ismember = this.ismember ? "Yes" : "No",
-            comprehensive = this.comprehensive?.title ?? "None",
-            workshop = this.workshop?.title ?? "None",
-            coupon = this.coupon?.text ?? "None",
-            portfolio = this.portfolio,
-            manuscript = this.manuscript,
-            submitted = this.submitted,
-            paid = this.paid,
-            subtotal = this.subtotal,
-            total = this.total
+        public FlatRegistration Flatten() => new FlatRegistration
+        {
+            firstname = user.firstname,
+            lastname = user.lastname,
+            address1 = user.address1,
+            address2 = user.address2,
+            city = user.city,
+            state = user.state,
+            postalcode = user.postalcode,
+            phone = user.phone,
+            Email = user.Email,
+            ismember = ismember ? "Yes" : "No",
+            comprehensive = comprehensive?.title ?? "None",
+            workshop = workshop?.title ?? "None",
+            coupon = coupon?.text ?? "None",
+            portfolio = portfolio,
+            manuscript = manuscript,
+            submitted = submitted,
+            paid = paid,
+            subtotal = subtotal,
+            total = total
         };
+
+        public string GenEmail()
+        {
+            var flat = Flatten();
+
+            var email = $@"<h3>Congratulations! We have received your registration.</h3>
+<p>If you have any questions, please don't hesitate to contact us at <a href='mailto:florida-ra@scbwi.org'>florida-ra@scbwi.org</a></p>
+<p>For your records, here what you requested:</p>
+<table>
+    <tbody>
+        <tr>
+            <td><b>Name</b></td>
+            <td>{flat.firstname} {flat.lastname}</td>
+        </tr>
+        <tr>
+            <td><b>Address</b></td>
+            <td>
+                {flat.address1}<br /> {flat.address2}
+                <br /> {flat.city}, {flat.state} {flat.postalcode}<br />
+            </td>
+        </tr>
+        <tr>
+            <td><b>Email:</b></td>
+            <td>{flat.Email}</td>
+        </tr>
+        <tr>
+            <td><b>Phone:</b></td>
+            <td>{flat.phone}</td>
+        </tr>
+        <tr>
+            <td><b>Workshop Chosen:</b></td>
+            <td>
+                {flat.workshop}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Comprehensive Chosen:</b></td>
+            <td>{flat.comprehensive}</td>
+        </tr>
+        <tr>
+            <td><b>Critiques requested:</b></td>
+            <td>
+                Manuscript: {flat.manuscript}<br /> Portfolio: {flat.portfolio}<br />
+            </td>
+        </tr>
+        <tr>
+            <td><b>Coupon Used:</b></td>
+            <td>{flat.coupon}</td>
+        </tr>
+        <tr>
+            <td><b>Subtotal:</b></td>
+            <td>{flat.subtotal}</td>
+        </tr>
+        <tr>
+            <td><b>Total:</b></td>
+            <td>{flat.total}</td>
+        </tr>
+    </tbody>
+</table>";
+
+            return email;
+        }
     }
 
-    public class FlatRegistration {
+    public class FlatRegistration
+    {
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string address1 { get; set; }
