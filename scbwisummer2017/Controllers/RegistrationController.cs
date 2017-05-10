@@ -50,10 +50,12 @@ namespace scbwisummer2017.Controllers
 
         public IActionResult Comprehensives() => Success(_db.Comprehensives.OrderBy(x => x.title).ToList());
 
-        public IActionResult Copy() {
+        public IActionResult Copy()
+        {
             var copy = _db.Copy.ToList();
 
-            return Success(new {
+            return Success(new
+            {
                 frontpage = copy.SingleOrDefault(x => x.page == "frontpage")?.text,
                 workshop = copy.SingleOrDefault(x => x.page == "workshop")?.text,
                 comprehensive = copy.SingleOrDefault(x => x.page == "comprehensive")?.text,
@@ -62,7 +64,8 @@ namespace scbwisummer2017.Controllers
             });
         }
 
-        public IActionResult Prices() {
+        public IActionResult Prices()
+        {
             var late = _db.Dates.SingleOrDefault(x => x.name == "late").value;
             var islate = late < DateTime.Now;
             var prices = _db.Prices.Where(x => x.late == islate).ToList();
@@ -71,7 +74,8 @@ namespace scbwisummer2017.Controllers
             var comprehensive = prices.SingleOrDefault(x => x.type == "comprehensive")?.value ?? 0;
             var critique = prices.SingleOrDefault(x => x.type == "critique")?.value ?? 0;
 
-            var p = new Prices {
+            var p = new Prices
+            {
                 workshop = new Dictionary<string, decimal> {
                     { "member", m_workshop },
                     { "nonmember", nm_workshop }
@@ -87,8 +91,10 @@ namespace scbwisummer2017.Controllers
             return Success(p);
         }
 
-        public IActionResult CalcTotal([FromBody] RegistrationViewModel r) {
-            if (!ModelState.IsValid) {
+        public IActionResult CalcTotal([FromBody] RegistrationViewModel r)
+        {
+            if (!ModelState.IsValid)
+            {
                 return Failure("Whoops");
             }
 
@@ -150,7 +156,9 @@ namespace scbwisummer2017.Controllers
 
                     if (!emailResp.IsSuccessStatusCode)
                     {
-                        _logger.LogWarning($"Failed to send confirmation email to {reg.user.Email}. Reason: {emailResp.ReasonPhrase}");
+                        var resp = await emailResp.Content.ReadAsStringAsync();
+
+                        _logger.LogWarning($"Failed to send confirmation email to {reg.user.Email}. Reason: {resp}");
                     }
                 }
                 catch (Exception ex)
