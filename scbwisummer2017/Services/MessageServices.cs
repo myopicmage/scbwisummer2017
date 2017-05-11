@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace scbwisummer2017.Services
 {
@@ -13,10 +15,13 @@ namespace scbwisummer2017.Services
     // For more details see this link http://go.microsoft.com/fwlink/?LinkID=532713
     public class AuthMessageSender : IEmailSender, ISmsSender
     {
-        public AuthMessageSender(IOptions<Secrets> secrets, IOptions<EmailOptions> emailopts)
+        private readonly ILogger _logger;
+
+        public AuthMessageSender(IOptions<Secrets> secrets, IOptions<EmailOptions> emailopts, ILoggerFactory factory)
         {
             Options = secrets.Value;
             EmailOpts = emailopts.Value;
+            _logger = factory.CreateLogger("All");
 
             support_email = new EmailAddress(EmailOpts.supportemail, EmailOpts.supportemailname);
         }
@@ -48,13 +53,17 @@ namespace scbwisummer2017.Services
                     new Personalization
                     {
                         to = new [] { new EmailAddress(email, name) },
-                        bcc = new List<EmailAddress>(),
                         subject = subject
                     }
                 },
                 from = new EmailAddress("register@scbwiflorida.com", "SCBWI Florida Registration Bot"),
                 reply_to = support_email
             };
+
+            if (EmailOpts.ccra || EmailOpts.sendtoself) 
+            {
+                payload.personalizations.First().bcc = new List<EmailAddress>();
+            }
 
             if (EmailOpts.ccra)
             {
@@ -65,6 +74,10 @@ namespace scbwisummer2017.Services
             {
                 payload.personalizations.First().bcc.Add(new EmailAddress(EmailOpts.self, ""));
             }
+
+            var payloadAsJson = JsonConvert.SerializeObject(payload);
+
+            _logger.LogInformation($"Sending email: {payloadAsJson}");
 
             return client.PostAsJsonAsync("https://api.sendgrid.com/v3/mail/send", payload);
         }

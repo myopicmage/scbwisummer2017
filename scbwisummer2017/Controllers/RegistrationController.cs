@@ -46,6 +46,13 @@ namespace scbwisummer2017.Controllers
             }
         }
 
+        /*public async Task<IActionResult> TestEmail() {
+            var email = await _email.SendEmailAsync("kcbernfeld@gmail.com", "Test Email", "testing testing", "Kevin Bernfeld");
+            var response = await email.Content.ReadAsStringAsync();
+
+            return Success();
+        }*/
+
         public IActionResult Tracks() => Success(_db.Workshops.OrderBy(x => x.title).ToList());
 
         public IActionResult Comprehensives() => Success(_db.Comprehensives.OrderBy(x => x.title).ToList());
