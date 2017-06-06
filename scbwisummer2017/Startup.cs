@@ -10,7 +10,7 @@ using scbwisummer2017.Models;
 using scbwisummer2017.Services;
 using WebApiContrib.Core.Formatter.Csv;
 using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.SpaServices.Webpack;
+using Newtonsoft.Json;
 
 namespace scbwisummer2017
 {
@@ -30,6 +30,7 @@ namespace scbwisummer2017
             }
 
             builder.AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -56,6 +57,9 @@ namespace scbwisummer2017
             {
                 options.OutputFormatters.Add(new CsvOutputFormatter(formatOptions));
                 options.FormatterMappings.SetMediaTypeMappingForFormat("csv", MediaTypeHeaderValue.Parse("text/csv"));
+            })
+            .AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
             // Add application services.
@@ -92,11 +96,11 @@ namespace scbwisummer2017
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
 
-                app.UseWebpackDevMiddleware(/*new WebpackDevMiddlewareOptions
+                /*app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true,
                     ReactHotModuleReplacement = true
-                }*/);
+                });*/
             }
             else
             {
